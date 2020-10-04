@@ -10,7 +10,7 @@ using TodoListStart.Application.Models;
 
 namespace TodoListStart.Application.Services
 {
-    public class Repository
+    public partial class Repository
     {
         private readonly AppDbContext _dbContext;
         private readonly IDateTimeService _datetimeService;
@@ -64,21 +64,19 @@ namespace TodoListStart.Application.Services
             await _dbContext.SaveChangesAsync();
 
         }
-        public async Task<bool> ExistAsync<TModel>(int id)
+        public bool Exist<TModel>(int id)
             where TModel : class, new()
         {
-            var result = await _dbContext.Set<TModel>().AsNoTracking().AnyAsync(x => (x as IEntityIdentity).Id == id);
+            var result = _dbContext.Set<TModel>()
+                .AsNoTracking()
+                .ToList()
+                .Any(x => (x as IEntityIdentity).Id == id);
             return result;
         }
         public DbSet<TModel> GetDbContext<TModel>()
             where TModel : class, new()
         {
             return _dbContext.Set<TModel>();
-        }
-        public async Task<IEnumerable<TodoItem>> GetTodoItemsByTodoListId(int id)
-        {
-            var items = await _dbContext.TodoItems.Where(item => item.TodoListId == id).ToListAsync();
-            return items;
         }
     }
 }

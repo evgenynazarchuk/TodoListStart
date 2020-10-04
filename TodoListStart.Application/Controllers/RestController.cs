@@ -48,6 +48,10 @@ namespace TodoListStart.Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]TValueObject entitySource)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var entity = _mapper.Map<TValueObject, TModel>(entitySource);
             await _repo.AddAsync(entity);
             var entityValue = _mapper.Map<TModel, TValueObject>(entity);
@@ -56,13 +60,13 @@ namespace TodoListStart.Application.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]TValueObject entitySource)
         {
-            var entity = await _repo.ExistAsync<TModel>((entitySource as IEntityIdentity).Id);
+            var entity = _repo.Exist<TModel>((entitySource as IEntityIdentity).Id);
 
             if (entity == true)
             {
                 var entityModel = _mapper.Map<TValueObject, TModel>(entitySource);
                 await _repo.UpdateAsync(entityModel);
-                return Ok();
+                return Ok(entityModel);
             }
             else
             {

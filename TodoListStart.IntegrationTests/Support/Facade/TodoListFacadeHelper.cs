@@ -11,32 +11,32 @@ namespace TodoListStart.IntegrationTests.Support.Facade
 {
     public partial class FacadeHelper
     {
-        public List<TodoListValue> GetTodoLists()
+        public ResponseResult<List<TodoListValue>> GetTodoLists()
         {
             var todoLists = GetRequest<List<TodoListValue>>($"{Urls.TODO_LIST_CONTROLLER}");
             return todoLists;
         }
-        public TodoListValue GetTodoListById(int id)
+        public ResponseResult<TodoListValue> GetTodoListById(int id)
         {
             var todoList = GetRequest<TodoListValue>($"{Urls.TODO_LIST_CONTROLLER}/{id}");
             return todoList;
         }
-        public TodoListValue PostTodoList(TodoListValue todoListValue)
+        public ResponseResult<TodoListValue> PostTodoList(TodoListValue todoListValue)
         {
             var response = PostRequest($"{Urls.TODO_LIST_CONTROLLER}", todoListValue);
             return response;
         }
-        public HttpResponseMessage PutTodoList(TodoListValue todoListValue)
+        public ResponseResult<bool> PutTodoList(TodoListValue todoListValue)
         {
             var response = PutRequest($"{Urls.TODO_LIST_CONTROLLER}", todoListValue);
             return response;
         }
-        public HttpResponseMessage DeleteListItem(int id)
+        public ResponseResult<bool> DeleteTodoList(int id)
         {
             var response = DeleteRequest($"{Urls.TODO_LIST_CONTROLLER}/{id}");
             return response;
         }
-        public List<TodoItemValue> GetItemsByListId(int id)
+        public ResponseResult<List<TodoItemValue>> GetItemsByListId(int id)
         {
             var todoItems = GetRequest<List<TodoItemValue>>($"{Urls.TODO_LIST_CONTROLLER}/{id}/items");
             return todoItems;

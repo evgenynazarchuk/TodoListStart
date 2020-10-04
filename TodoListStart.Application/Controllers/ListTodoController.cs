@@ -27,11 +27,11 @@ namespace TodoListStart.Application.Controllers
             _mapper = mapper;
         }
         [HttpGet("{id}/items")]
-        public async Task<IEnumerable<TodoItem>> GetItemsById(int id)
+        public async Task<IEnumerable<TodoItemValue>> GetItemsById(int id)
         {
             var items = await _repo.GetTodoItemsByTodoListId(id);
             var itemsValue = _mapper.Map<IEnumerable<TodoItem>, IEnumerable<TodoItemValue>>(items);
-            return items;
+            return itemsValue;
         }
     }
 }
