@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http;
-using Microsoft.AspNetCore.TestHost;
-using System.Runtime.CompilerServices;
 using TodoListStart.Application.Interfaces;
 using TodoListStart.Application;
 using TodoListStart.IntegrationTests.Support.Services;

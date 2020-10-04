@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TodoListStart.IntegrationTests.Support.Facade;
 using TodoListStart.IntegrationTests.Support.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.AspNetCore.TestHost;
 using TodoListStart.Application;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +9,6 @@ using System.Net.Http;
 using TodoListStart.Application.Services;
 using TodoListStart.IntegrationTests.Support.Extensions;
 using TodoListStart.Application.Interfaces;
-using System.Runtime.CompilerServices;
 using AutoMapper;
 
 namespace TodoListStart.IntegrationTests.Support

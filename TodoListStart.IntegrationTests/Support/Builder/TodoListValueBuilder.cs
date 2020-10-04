@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 
 namespace TodoListStart.IntegrationTests.Support.Builder

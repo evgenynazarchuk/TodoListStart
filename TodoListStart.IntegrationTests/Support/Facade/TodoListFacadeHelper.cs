@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TodoListStart.Application.ValueObjects;
-using TodoListStart.Application.Models;
-using System.Net.Http;
-using System.Text.Json;
 using TodoListStart.IntegrationTests.Support.Constants;
 
 namespace TodoListStart.IntegrationTests.Support.Facade

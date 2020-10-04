@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TodoListStart.IntegrationTests.Support;
 using TodoListStart.IntegrationTests.Support.Builder;
 

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using TodoListStart.Application.Services;
-using TodoListStart.Application.Interfaces;
 using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -27,11 +21,21 @@ namespace TodoListStart.Application.Controllers
             _mapper = mapper;
         }
         [HttpGet("{id}/items")]
-        public async Task<IEnumerable<TodoItemValue>> GetItemsById(int id)
+        public virtual async Task<IEnumerable<TodoItemValue>> GetItemsById(int id)
         {
             var items = await _repo.GetTodoItemsByTodoListId(id);
             var itemsValue = _mapper.Map<IEnumerable<TodoItem>, IEnumerable<TodoItemValue>>(items);
             return itemsValue;
+        }
+        [HttpPost]
+        public override async Task<IActionResult> Post([FromBody] TodoListValue entitySource)
+        {
+            // base validator
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return await base.Post(entitySource);
         }
     }
 }

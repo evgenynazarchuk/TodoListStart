@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using TodoListStart.Application.Interfaces;
 using TodoListStart.Application.Services;
 
 namespace TodoListStart.IntegrationTests.Support.Data

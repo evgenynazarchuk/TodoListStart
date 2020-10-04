@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using TodoListStart.Application.Services;
 using TodoListStart.Application.Interfaces;
-using TodoListStart.Application.Models;
-using TodoListStart.Application.ValueObjects;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -25,14 +19,14 @@ namespace TodoListStart.Application.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public virtual async Task<IActionResult> Get()
         {
             var entities = await _repo.ReadAsync<TModel>();
             var entityValue = _mapper.Map<List<TModel>, List<TValueObject>>(entities);
             return Ok(entityValue);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public virtual async Task<IActionResult> Get(int id)
         {
             var entity = await _repo.FindAsync<TModel>(id);
             if (entity != null)
@@ -46,19 +40,15 @@ namespace TodoListStart.Application.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]TValueObject entitySource)
+        public virtual async Task<IActionResult> Post([FromBody]TValueObject entitySource)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var entity = _mapper.Map<TValueObject, TModel>(entitySource);
             await _repo.AddAsync(entity);
             var entityValue = _mapper.Map<TModel, TValueObject>(entity);
             return Ok(entityValue);
         }
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody]TValueObject entitySource)
+        public virtual async Task<IActionResult> Put([FromBody]TValueObject entitySource)
         {
             var entity = _repo.Exist<TModel>((entitySource as IEntityIdentity).Id);
 
@@ -74,7 +64,7 @@ namespace TodoListStart.Application.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public virtual async Task<IActionResult> Delete(int id)
         {
             var entity = await _repo.FindAsync<TModel>(id);
             if (entity != null)

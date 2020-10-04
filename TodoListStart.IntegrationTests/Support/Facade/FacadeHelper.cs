@@ -5,16 +5,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Net;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc;
-using TodoListStart.Application.Services;
-using TodoListStart.Application.Interfaces;
-using TodoListStart.Application.Models;
-using TodoListStart.Application.ValueObjects;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq.Expressions;
+using AutoMapper.Internal;
 
 namespace TodoListStart.IntegrationTests.Support.Facade
 {
@@ -30,12 +22,12 @@ namespace TodoListStart.IntegrationTests.Support.Facade
             var response = _client.GetAsync(url).GetAwaiter().GetResult();
             var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            // get errors
+            #region catch_error
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return new ResponseResult<TType>(title: "Not Found");
             }
-            // end get errors
+            #endregion catch_error
 
             var obj = JsonSerializer.Deserialize<TType>(content, new JsonSerializerOptions()
             {
@@ -47,36 +39,36 @@ namespace TodoListStart.IntegrationTests.Support.Facade
         {
             var jsonData = JsonSerializer.Serialize(obj);
             var response = _client.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+
+            #region catch_error
+            if (response.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                return new ResponseResult<TType>(title: "Internal Server Error");
+            }
+
             var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            // get errors
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                var errors = JsonSerializer.Deserialize<ResponseError>(content, new JsonSerializerOptions()
+                var modelError = JsonSerializer.Deserialize<ResponseError>(content, new JsonSerializerOptions()
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
                 var totalErrorMessage = new List<string>();
-                foreach (var modelState in errors.Errors)
+                foreach (var modelState in modelError.Errors)
                 {
                     totalErrorMessage.AddRange(modelState.Value);
                 }
-                return new ResponseResult<TType>(errors.Title, totalErrorMessage);
+                return new ResponseResult<TType>(modelError.Title, totalErrorMessage);
             }
-            if (response.StatusCode == HttpStatusCode.InternalServerError)
-            {
-                return new ResponseResult<TType>(title: "Internal Server Error");
-            }
-            // end get errors
+            #endregion catch_error
 
-            // return correct obj
             var responseObj = JsonSerializer.Deserialize<TType>(content, new JsonSerializerOptions()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
             return new ResponseResult<TType>(responseObj);
-
         }
         private ResponseResult<bool> PutRequest<TType>(string url, TType obj)
         {
@@ -84,14 +76,10 @@ namespace TodoListStart.IntegrationTests.Support.Facade
             var response = _client.PutAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
             var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            // get errors
+            #region catch_error
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                var errors = JsonSerializer.Deserialize<ResponseError>(content, new JsonSerializerOptions()
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-                return new ResponseResult<bool>(title: errors.Title);
+                return new ResponseResult<bool>(title: "Not Found");
             }
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -101,13 +89,10 @@ namespace TodoListStart.IntegrationTests.Support.Facade
                 });
 
                 var totalErrorMessage = new List<string>();
-                foreach (var modelState in errors.Errors)
-                {
-                    totalErrorMessage.AddRange(modelState.Value);
-                }
+                errors.Errors.ForAll(e => totalErrorMessage.AddRange(e.Value));
                 return new ResponseResult<bool>(errors.Title, totalErrorMessage);
             }
-            // end get errors
+            #endregion catch_error
 
             return new ResponseResult<bool>(true);
         }
@@ -115,17 +100,12 @@ namespace TodoListStart.IntegrationTests.Support.Facade
         {
             var response = _client.DeleteAsync(url).GetAwaiter().GetResult();
 
-            // get errors
+            #region catch_error
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                var errors = JsonSerializer.Deserialize<ResponseError>(content, new JsonSerializerOptions()
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-                return new ResponseResult<bool>(title: errors.Title);
+                return new ResponseResult<bool>(title: "Not Found");
             }
-            // end get errors
+            #endregion catch_error
 
             return new ResponseResult<bool>(true);
         }

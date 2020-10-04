@@ -12,6 +12,8 @@ using TodoListStart.Application.Services;
 using AutoMapper;
 using TodoListStart.Application.Configuration.Models;
 using TodoListStart.Application.Interfaces;
+using Microsoft.OpenApi.Models;
+using TodoListStart.Application.Validations;
 
 namespace TodoListStart.Application
 {
@@ -26,7 +28,12 @@ namespace TodoListStart.Application
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddAutoMapper(config => config.AddProfile<ModelProfile>());
             services.AddTransient<Repository>();
+            services.AddTransient<TodoItemValidationService>();
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoStart API", Version = "v1" });
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -34,6 +41,12 @@ namespace TodoListStart.Application
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoStart API");
+            });
 
             app.UseRouting();
 

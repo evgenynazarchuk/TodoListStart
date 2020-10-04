@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TodoListStart.Application.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using TodoListStart.Application.Constants;
