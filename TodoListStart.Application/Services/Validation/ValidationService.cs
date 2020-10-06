@@ -1,12 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using TodoListStart.Application.ApplicationServices;
-using TodoListStart.Application.ValueObjects;
-using TodoListStart.Application.Models;
-using Microsoft.EntityFrameworkCore;
-using TodoListStart.Application.Constants;
-using TodoListStart.Application.Controllers;
-using TodoListStart.Application.Interfaces;
+﻿using TodoListStart.Application.Interfaces;
 
 namespace TodoListStart.Application.Services.Validation
 {

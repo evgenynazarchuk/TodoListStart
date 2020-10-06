@@ -12,7 +12,7 @@ namespace TodoListStart.IntegrationTests.Support.Data
                 .CreateDefaultBuilder()
                 .Build();
             var todoList = _mapper.Map<TodoListValue, TodoList>(todoListValue);
-            _repo.AddAsync(todoList).GetAwaiter().GetResult();
+            _repo.Add(todoList).GetAwaiter().GetResult();
             return todoList;
         }
     }

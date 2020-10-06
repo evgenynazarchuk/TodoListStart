@@ -1,18 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TodoListStart.Application.ApplicationServices;
 using TodoListStart.Application.ValueObjects;
 using TodoListStart.Application.Models;
-using Microsoft.EntityFrameworkCore;
 using TodoListStart.Application.Constants;
-using TodoListStart.Application.Controllers;
-using TodoListStart.Application.Interfaces;
 
 namespace TodoListStart.Application.Services.Validation
 {
     public partial class ValidationService
     {
-        public virtual async Task<List<string>> ValidationTodoItem(TodoItemValue todoItem)
+        public virtual async Task<List<string>> ValidateTodoItem(TodoItemValue todoItem, string method)
         {
             var errorMessages = new List<string>();
 
@@ -33,7 +29,7 @@ namespace TodoListStart.Application.Services.Validation
                 errorMessages.Add(ErrorMessages.ListNotExist);
             }
 
-            if (await _repo.IsExistItemTitle(todoItem))
+            if (await _repo.IsExistItemTitleInList(todoItem))
             {
                 errorMessages.Add(ErrorMessages.ItemNotUnique);
             }

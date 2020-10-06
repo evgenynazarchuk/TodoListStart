@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TodoListStart.Application.ApplicationServices;
 using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 using AutoMapper;
 using TodoListStart.Application.Interfaces;
-using System.Runtime.InteropServices;
-using TodoListStart.Application.Constants;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -31,7 +28,7 @@ namespace TodoListStart.Application.Controllers
         [HttpPost]
         public override async Task<IActionResult> Post([FromBody] TodoItemValue entitySource)
         {
-            var errors = await _validator.ValidationTodoItem(entitySource);
+            var errors = await _validator.ValidateTodoItem(entitySource, "POST");
             if (errors.Count > 0)
             {
                 return BadRequest(errors);
@@ -46,7 +43,7 @@ namespace TodoListStart.Application.Controllers
                 return NotFound(entitySource);
             }
 
-            var errors = await _validator.ValidationTodoItem(entitySource);
+            var errors = await _validator.ValidateTodoItem(entitySource, "PUT");
             if (errors.Count > 0)
             {
                 return BadRequest(errors);

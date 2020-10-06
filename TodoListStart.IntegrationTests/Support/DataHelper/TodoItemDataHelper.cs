@@ -17,7 +17,7 @@ namespace TodoListStart.IntegrationTests.Support.Data
                 })
                 .Build();
             var todoItem = _mapper.Map<TodoItemValue, TodoItem>(todoItemValue);
-            _repo.AddAsync(todoItem).GetAwaiter().GetResult();
+            _repo.Add(todoItem).GetAwaiter().GetResult();
             return todoItem;
         }
     }

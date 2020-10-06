@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TodoListStart.Application.ApplicationServices;
 using TodoListStart.Application.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -21,14 +21,14 @@ namespace TodoListStart.Application.Controllers
         [HttpGet]
         public virtual async Task<IActionResult> Get()
         {
-            var entities = await _repo.ReadAsync<TModel>();
+            var entities = await _repo.Read<TModel>().ToListAsync();
             var entityValue = _mapper.Map<List<TModel>, List<TValueObject>>(entities);
             return Ok(entityValue);
         }
         [HttpGet("{id}")]
         public virtual async Task<IActionResult> Get(int id)
         {
-            var entity = await _repo.FindAsync<TModel>(id);
+            var entity = await _repo.Find<TModel>(id);
             if (entity != null)
             {
                 var entityValue = _mapper.Map<TModel, TValueObject>(entity);
@@ -43,7 +43,7 @@ namespace TodoListStart.Application.Controllers
         public virtual async Task<IActionResult> Post([FromBody]TValueObject entitySource)
         {
             var entity = _mapper.Map<TValueObject, TModel>(entitySource);
-            await _repo.AddAsync(entity);
+            await _repo.Add(entity);
             var entityValue = _mapper.Map<TModel, TValueObject>(entity);
             return Ok(entityValue);
         }
@@ -51,16 +51,16 @@ namespace TodoListStart.Application.Controllers
         public virtual async Task<IActionResult> Put([FromBody]TValueObject entitySource)
         {
             var entityModel = _mapper.Map<TValueObject, TModel>(entitySource);
-            await _repo.UpdateAsync(entityModel);
+            await _repo.Update(entityModel);
             return Ok(entityModel);
         }
         [HttpDelete("{id}")]
         public virtual async Task<IActionResult> Delete(int id)
         {
-            var entity = await _repo.FindAsync<TModel>(id);
+            var entity = await _repo.Find<TModel>(id);
             if (entity != null)
             {
-                await _repo.RemoveAsync(entity);
+                await _repo.Remove(entity);
                 return Ok();
             }
             else

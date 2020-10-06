@@ -10,20 +10,20 @@ namespace TodoListStart.Application.Interfaces
 {
     public interface IRepository
     {
-        Task<List<TModel>> ReadAsync<TModel>()
-            where TModel : class, new();
-        Task<TModel> AddAsync<TModel>(TModel entity)
-            where TModel : class, new();
-        Task<TModel> FindAsync<TModel>(int id)
-            where TModel : class, new(); 
-        Task UpdateAsync<TModel>(TModel entity)
-            where TModel : class, new();
-        Task RemoveAsync<TModel>(TModel entity)
+        IQueryable<TModel> Read<TModel>()
+            where TModel : class, IEntityIdentity, new();
+        Task<TModel> Add<TModel>(TModel entity)
+            where TModel : class, IEntityIdentity, new();
+        Task<TModel> Find<TModel>(int id)
+            where TModel : class, IEntityIdentity, new();
+        Task Update<TModel>(TModel entity)
+            where TModel : class, IEntityIdentity, new();
+        Task Remove<TModel>(TModel entity)
             where TModel : class, new();
         Task<IEnumerable<TodoItem>> GetTodoItemsByTodoListId(int id);
         Task<bool> IsExist<TModel>(int id)
             where TModel : class, IEntityIdentity, new();
-        Task<bool> IsExistItemTitle(TodoItemValue todoItem);
-        Task<bool> IsExistTitleList(TodoListValue todoList);
+        Task<bool> IsExistItemTitleInList(TodoItemValue todoItem);
+        Task<bool> IsExistListTitle(TodoListValue todoList);
     }
 }

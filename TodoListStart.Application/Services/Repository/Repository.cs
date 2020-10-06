@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TodoListStart.Application.Configuration.Models;
 using TodoListStart.Application.Interfaces;
-
 
 namespace TodoListStart.Application.Services.Repository
 {
@@ -18,20 +14,20 @@ namespace TodoListStart.Application.Services.Repository
             _dbContext = dbContext;
             _datetimeService = datetimeServce;
         }
-        public virtual async Task<List<TModel>> ReadAsync<TModel>()
-            where TModel : class, new()
+        public virtual IQueryable<TModel> Read<TModel>()
+            where TModel : class, IEntityIdentity, new()
         {
-            var entities = await _dbContext.Set<TModel>().AsNoTracking().ToListAsync();
+            var entities = _dbContext.Set<TModel>().AsNoTracking().AsQueryable();
             return entities;
         }
-        public virtual async Task<TModel> FindAsync<TModel>(int id)
-            where TModel : class, new()
+        public virtual async Task<TModel> Find<TModel>(int id)
+            where TModel : class, IEntityIdentity, new()
         {
-            var entity = await _dbContext.Set<TModel>().FindAsync(id);
+            var entity = await Read<TModel>().SingleOrDefaultAsync(x => x.Id == id);
             return entity;
         }
-        public virtual async Task<TModel> AddAsync<TModel>(TModel entity)
-            where TModel : class, new()
+        public virtual async Task<TModel> Add<TModel>(TModel entity)
+            where TModel : class, IEntityIdentity, new()
         {
             if (entity is IDateTimeAudit)
             {
@@ -42,13 +38,12 @@ namespace TodoListStart.Application.Services.Repository
             await _dbContext.SaveChangesAsync();
             return entity;
         }
-        public virtual async Task UpdateAsync<TModel>(TModel entity)
-            where TModel : class, new()
+        public virtual async Task Update<TModel>(TModel entity)
+            where TModel : class, IEntityIdentity, new()
         {
             if (entity is IDateTimeAudit)
             {
-                var entityModel = await _dbContext.FindAsync<TModel>((entity as IEntityIdentity).Id);
-                _dbContext.Entry(entityModel).State = EntityState.Detached;
+                var entityModel = await Find<TModel>(entity.Id);
                 var entityAudit = entity as IDateTimeAudit;
                 entityAudit.ModifiedDate = _datetimeService.Now;
                 entityAudit.CreatedDate = (entityModel as IDateTimeAudit).CreatedDate;
@@ -56,10 +51,10 @@ namespace TodoListStart.Application.Services.Repository
             _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
         }
-        public virtual async Task RemoveAsync<TModel>(TModel entity)
+        public virtual async Task Remove<TModel>(TModel entity)
             where TModel : class, new()
         {
-            _dbContext.Entry(entity).State = EntityState.Deleted;
+            _dbContext.Set<TModel>().Remove(entity);
             await _dbContext.SaveChangesAsync();
 
         }
@@ -67,10 +62,7 @@ namespace TodoListStart.Application.Services.Repository
             where TModel : class, IEntityIdentity, new()
         {
 
-            var result = await _dbContext.Set<TModel>()
-                .AsNoTracking()
-                .AnyAsync(x => x.Id == id);
-
+            var result = await Read<TModel>().AnyAsync(x => x.Id == id);
             return result;
         }
     }
