@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodoListStart.Application\TodoListStart.Application.csproj" />
+    <ProjectReference Include="..\TodoListStart.IntegrationTests\TodoListStart.IntegrationTests.csproj" />
   </ItemGroup>
 
 </Project>

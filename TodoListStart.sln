@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListStart.IntegrationTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListStart.UnitTests", "TodoListStart.UnitTests\TodoListStart.UnitTests.csproj", "{A42FFB63-DDC2-4271-AF49-4EA81AFA850E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListStart.PerfomanceTests", "TodoListStart.PerfomanceTests\TodoListStart.PerfomanceTests.csproj", "{B59AE632-2F37-434D-9B3A-ACD065683EB1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0DE83352-57CF-4CB4-9EFA-8279257481DE}"
 	ProjectSection(SolutionItems) = preProject
 		TODO.txt = TODO.txt
@@ -34,10 +32,6 @@ Global
 		{A42FFB63-DDC2-4271-AF49-4EA81AFA850E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A42FFB63-DDC2-4271-AF49-4EA81AFA850E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A42FFB63-DDC2-4271-AF49-4EA81AFA850E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B59AE632-2F37-434D-9B3A-ACD065683EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B59AE632-2F37-434D-9B3A-ACD065683EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B59AE632-2F37-434D-9B3A-ACD065683EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B59AE632-2F37-434D-9B3A-ACD065683EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

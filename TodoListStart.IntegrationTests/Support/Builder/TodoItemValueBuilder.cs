@@ -23,7 +23,7 @@ namespace TodoListStart.IntegrationTests.Support.Builder
                 Body = "Body",
                 TodoListId = 1,
                 IsCompleted = false,
-                DueDate = new DateTime().AddMonths(1)
+                DueDate = null
             };
             return new TodoItemValueBuilder(todoList);
         }

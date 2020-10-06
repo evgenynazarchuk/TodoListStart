@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TodoListStart.Application.Services;
+using TodoListStart.Application.ApplicationServices;
 using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 using AutoMapper;
-using TodoListStart.Application.Validations;
+using TodoListStart.Application.Interfaces;
+using System.Runtime.InteropServices;
+using TodoListStart.Application.Constants;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -13,13 +15,14 @@ namespace TodoListStart.Application.Controllers
     public class TodoItemController : RestController<TodoItem, TodoItemValue>
     {
         private readonly IMapper _mapper;
-        private readonly Repository _repo;
-        private readonly TodoItemValidationService _validator;
+        private readonly IRepository _repo;
+        private readonly IValidationService _validator;
         public TodoItemController(
-            Repository repo, 
+            IRepository repo, 
             IMapper mapper,
-            TodoItemValidationService validator)
-            :base(repo, mapper)
+            IValidationService validator
+            )
+            : base(repo, mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -28,32 +31,25 @@ namespace TodoListStart.Application.Controllers
         [HttpPost]
         public override async Task<IActionResult> Post([FromBody] TodoItemValue entitySource)
         {
-            // base validator
-            if (!ModelState.IsValid)
+            var errors = await _validator.ValidationTodoItem(entitySource);
+            if (errors.Count > 0)
             {
-                return BadRequest(ModelState);
-            }
-
-            // extented validator
-            var modelError = await _validator.Validate(entitySource);
-            if (modelError.Errors.Count != 0)
-            {
-                return BadRequest(modelError);
+                return BadRequest(errors);
             }
             return await base.Post(entitySource);
         }
         [HttpPut]
         public override async Task<IActionResult> Put([FromBody] TodoItemValue entitySource)
         {
-            if (!ModelState.IsValid)
+            if (!await _repo.IsExist<TodoItem>(entitySource.Id))
             {
-                return BadRequest(ModelState);
+                return NotFound(entitySource);
             }
 
-            var modelError = await _validator.Validate(entitySource);
-            if (modelError.Errors.Count != 0)
+            var errors = await _validator.ValidationTodoItem(entitySource);
+            if (errors.Count > 0)
             {
-                return BadRequest(modelError);
+                return BadRequest(errors);
             }
 
             return await base.Put(entitySource);

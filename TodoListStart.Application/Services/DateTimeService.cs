@@ -1,7 +1,7 @@
 ﻿using System;
 using TodoListStart.Application.Interfaces;
 
-namespace TodoListStart.Application.Services
+namespace TodoListStart.Application.ApplicationServices
 {
     public class DateTimeService : IDateTimeService
     {

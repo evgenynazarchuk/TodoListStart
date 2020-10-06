@@ -6,7 +6,7 @@ using TodoListStart.Application;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
-using TodoListStart.Application.Services;
+using TodoListStart.Application.ApplicationServices;
 using TodoListStart.IntegrationTests.Support.Extensions;
 using TodoListStart.Application.Interfaces;
 using AutoMapper;
@@ -18,7 +18,7 @@ namespace TodoListStart.IntegrationTests.Support
         private readonly HttpClient _client;
         private readonly TestServer _server;
         private readonly AppDbContext _dbContext;
-        private readonly Repository _repoService;
+        private readonly IRepository _repoService;
         private readonly IMapper _mapperService;
         private readonly IDateTimeService _dateTimeService;
         public FacadeHelper Facade { get; set; }
@@ -40,7 +40,7 @@ namespace TodoListStart.IntegrationTests.Support
 
             _client = _server.CreateClient();
             _dbContext = _server.Host.Services.GetRequiredService<AppDbContext>();
-            _repoService = _server.Host.Services.GetRequiredService<Repository>();
+            _repoService = _server.Host.Services.GetRequiredService<IRepository>();
             _dateTimeService = _server.Host.Services.GetRequiredService<IDateTimeService>();
             _mapperService = _server.Host.Services.GetRequiredService<IMapper>();
 

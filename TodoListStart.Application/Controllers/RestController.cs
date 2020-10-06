@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TodoListStart.Application.Services;
+using TodoListStart.Application.ApplicationServices;
 using TodoListStart.Application.Interfaces;
 using AutoMapper;
 
 namespace TodoListStart.Application.Controllers
 {
     public class RestController<TModel, TValueObject> : ControllerBase
-        where TModel : class, new()
-        where TValueObject : class, new()
+        where TModel : class, IEntityIdentity, new()
+        where TValueObject : class, IEntityIdentity, new()
     {
         private readonly IMapper _mapper;
-        private readonly Repository _repo;
-        public RestController(Repository repo, IMapper mapper)
+        private readonly IRepository _repo;
+        public RestController(IRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -50,18 +50,9 @@ namespace TodoListStart.Application.Controllers
         [HttpPut]
         public virtual async Task<IActionResult> Put([FromBody]TValueObject entitySource)
         {
-            var entity = _repo.Exist<TModel>((entitySource as IEntityIdentity).Id);
-
-            if (entity == true)
-            {
-                var entityModel = _mapper.Map<TValueObject, TModel>(entitySource);
-                await _repo.UpdateAsync(entityModel);
-                return Ok(entityModel);
-            }
-            else
-            {
-                return NotFound();
-            }
+            var entityModel = _mapper.Map<TValueObject, TModel>(entitySource);
+            await _repo.UpdateAsync(entityModel);
+            return Ok(entityModel);
         }
         [HttpDelete("{id}")]
         public virtual async Task<IActionResult> Delete(int id)

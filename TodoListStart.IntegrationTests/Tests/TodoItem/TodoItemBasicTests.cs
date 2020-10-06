@@ -26,7 +26,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Assert
             item.Title.Should().Be("Title");
             item.Body.Should().Be("Body");
-            item.DueDate.Should().Be(new DateTime().AddMonths(1));
+            item.DueDate.Should().BeNull();
             item.IsCompleted.Should().BeFalse();
             item.CreatedDate.Should().Be(new DateTime(2020, 02, 03));
             item.ModifiedDate.Should().BeNull();
@@ -52,7 +52,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.GetTodoItemById(itemId).Value;
             result.Title.Should().Be("New Title");
             result.Body.Should().Be("New Body");
-            result.DueDate.Should().Be(new DateTime().AddMonths(1));
+            result.DueDate.Should().BeNull();
             result.IsCompleted.Should().BeTrue();
             result.CreatedDate.Should().Be(new DateTime(2020, 02, 03));
             result.ModifiedDate.Should().Be(new DateTime(2020, 03, 03));

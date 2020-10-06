@@ -8,8 +8,6 @@ namespace TodoListStart.Application.ValueObjects
     public class TodoItemValue : IEntityIdentity, IDateTimeAudit
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = Errors.ItemTitleEmpty)]
-        [StringLength(maximumLength: 140, MinimumLength = 1, ErrorMessage = Errors.ItemTitleLength)]
         public string Title { get; set; }
         [StringLength(maximumLength: 140)]
         public string Body { get; set; }

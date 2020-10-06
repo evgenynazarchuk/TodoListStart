@@ -28,12 +28,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PostTodoItem(todoItemValue);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.ErrorTitle);
-            result.Errors.Should().BeEquivalentTo(new List<string>
-            {
-                Errors.ItemTitleEmpty,
-                Errors.ItemTitleLength
-            });
+            result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.ItemTitleEmpty });
         }
         [TestMethod]
         public void UpdateIncorrectTodoItem()
@@ -47,12 +42,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PutTodoItem(item);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.ErrorTitle);
-            result.Errors.Should().BeEquivalentTo(new List<string>
-            {
-                Errors.ItemTitleEmpty,
-                Errors.ItemTitleLength
-            });
+            result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.ItemTitleEmpty });
         }
         [TestMethod]
         public void UpdateNotExistTodoItem()
@@ -67,33 +57,29 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PutTodoItem(item);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.NotFoundError);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
         public void GetNotExistTodoItem()
         {
             // Assert
-            var list = Data.AddTodoList();
-            var item = Data.AddTodoItem(todoListId: list.Id);
 
             // Act
-            var result = Facade.GetTodoItemById(item.Id + 1);
+            var result = Facade.GetTodoItemById(1);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.NotFoundError);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
         public void DeleteNotExistTodoItem()
         {
             // Assert
-            var list = Data.AddTodoList();
-            var item = Data.AddTodoItem(todoListId: list.Id);
 
             // Act
-            var result = Facade.DeleteTodoItem(item.Id + 1);
+            var result = Facade.DeleteTodoItem(1);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.NotFoundError);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
         public void CreateExistItemTitle()
@@ -110,7 +96,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PostTodoItem(newItemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { Errors.TodoItemNotUnique });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ItemNotUnique });
         }
         [TestMethod]
         public void UpdateExistItemTitleWithExistTitleName()
@@ -118,7 +104,10 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Arange
             var listId = Data.AddTodoList().Id;
             Data.AddTodoItem(todoListId: listId);
-            var item = TodoItemValueBuilder.CreateDefaultBuilder().Configure(i => i.Title = "Any title name").Build();
+            var item = TodoItemValueBuilder
+                .CreateDefaultBuilder()
+                .Configure(i => i.Title = "Any title name")
+                .Build();
             var itemId = Data.AddTodoItem(item, todoListId: listId).Id;
             var itemValue = Facade.GetTodoItemById(itemId).Value;
             itemValue.Title = "Title";
@@ -127,7 +116,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PutTodoItem(itemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { Errors.TodoItemNotUnique });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ItemNotUnique });
         }
         [TestMethod]
         public void CreateTodoItemWithNotExistTodoList()
@@ -141,7 +130,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PostTodoItem(newItemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { Errors.TodoListNotExist });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNotExist });
         }
         [TestMethod]
         public void UpdateExistItemWithNonExistTodoList()
@@ -155,7 +144,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PutTodoItem(itemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { Errors.TodoListNotExist });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNotExist });
         }
     }
 }

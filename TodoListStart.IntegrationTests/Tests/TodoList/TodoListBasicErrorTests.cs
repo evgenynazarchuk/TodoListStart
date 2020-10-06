@@ -10,13 +10,8 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
     [TestClass]
     public class TodoListBasicErrorTests : TestBase
     {
-        public List<string> ExpectedPostOrUpdateErrors = new List<string>
-        {
-            Errors.ListTitleEmpty,
-            Errors.ListTitleLength
-        };
         [TestMethod]
-        public void CreateInCorrectTodoList()
+        public void CreateIncorrectTodoList()
         {
             // Arange
             var list = TodoListValueBuilder
@@ -31,8 +26,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.PostTodoList(list);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.ErrorTitle);
-            result.Errors.Should().BeEquivalentTo(ExpectedPostOrUpdateErrors);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListTitleEmpty });
         }
         [TestMethod]
         public void UpdateInCorrectTodoList()
@@ -46,8 +40,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.PutTodoList(list);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.ErrorTitle);
-            result.Errors.Should().BeEquivalentTo(ExpectedPostOrUpdateErrors);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListTitleEmpty });
         }
         [TestMethod]
         public void UpdateNotExistTodoList()
@@ -61,7 +54,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.PutTodoList(list);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.NotFoundError);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
         public void DeleteNotExistTodoList()
@@ -73,7 +66,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.DeleteTodoList(listId + 1);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.NotFoundError);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
         public void GetNotExistTodoList()
@@ -83,7 +76,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.GetTodoListById(100);
 
             // Assert
-            result.ErrorTitle.Should().Be(Errors.NotFoundError);
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
     }
 }

@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TodoListStart.Application.Services;
+using TodoListStart.Application.ApplicationServices;
 using AutoMapper;
 using TodoListStart.Application.Configuration.Models;
 using TodoListStart.Application.Interfaces;
 using Microsoft.OpenApi.Models;
-using TodoListStart.Application.Validations;
+using TodoListStart.Application.Services.Repository;
+using TodoListStart.Application.Services.Validation;
 
 namespace TodoListStart.Application
 {
@@ -25,10 +26,10 @@ namespace TodoListStart.Application
             {
                 options.UseSqlite("Data Source=TodoListDb");
             });
-            services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddAutoMapper(config => config.AddProfile<ModelProfile>());
-            services.AddTransient<Repository>();
-            services.AddTransient<TodoItemValidationService>();
+            services.AddTransient<IDateTimeService, DateTimeService>();
+            services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IValidationService, ValidationService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
