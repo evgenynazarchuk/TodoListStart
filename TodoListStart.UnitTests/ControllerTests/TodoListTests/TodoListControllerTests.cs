@@ -57,7 +57,7 @@ namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
             mockMap.Setup(m => m.Map<TodoListValue, TodoList>(It.IsAny<TodoListValue>())).Returns(toModel);
             mockRepo.Setup(r => r.Add(It.IsAny<TodoList>())).ReturnsAsync(todoListModel);
             mockMap.Setup(m => m.Map<TodoList, TodoListValue>(It.IsAny<TodoList>())).Returns(toValue);
-            mockValidator.Setup(v => v.ValidateTodoList(It.IsAny<TodoListValue>(), It.IsAny<string>())).ReturnsAsync(new List<string>());
+            mockValidator.Setup(v => v.ValidateTodoList(It.IsAny<TodoListValue>(), "POST")).ReturnsAsync(new List<string>());
             var todoListController = new TodoListController(mockRepo.Object, mockMap.Object, mockValidator.Object);
             #endregion dependency
 
