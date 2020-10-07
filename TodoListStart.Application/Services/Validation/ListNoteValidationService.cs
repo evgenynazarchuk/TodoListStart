@@ -27,7 +27,7 @@ namespace TodoListStart.Application.Services.Validation
                 errorMessages.Add(ErrorMessages.ListNoteTitleIncorrectLenght);
             }
 
-            if (await _repo.IsExistListNoteName(listNoteValue))
+            if (await _repo.IsExistListNoteTitle(listNoteValue))
             {
                 errorMessages.Add(ErrorMessages.ListNoteTitleNotUnique);
             }

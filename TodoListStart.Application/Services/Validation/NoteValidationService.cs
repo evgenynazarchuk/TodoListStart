@@ -39,7 +39,7 @@ namespace TodoListStart.Application.Services.Validation
                 errorMessages.Add(ErrorMessages.ListNoteNotExist);
             }
 
-            if (await _repo.IsExistNoteInListNote(noteValue))
+            if (await _repo.IsExistNoteTextInListNote(noteValue))
             {
                 errorMessages.Add(ErrorMessages.NoteNotUnique);
             }

@@ -19,11 +19,11 @@ namespace TodoListStart.Application.Interfaces
         Task Update<TModel>(TModel entity)
             where TModel : class, IEntityIdentity, new();
         Task Remove<TModel>(TModel entity)
-            where TModel : class, new();
+            where TModel : class, IEntityIdentity, new();
         Task<IEnumerable<Note>> GetNotesByListNoteId(int id);
         Task<bool> IsExist<TModel>(int id)
             where TModel : class, IEntityIdentity, new();
-        Task<bool> IsExistNoteInListNote(NoteValue noteValue);
-        Task<bool> IsExistListNoteName(ListNoteValue listNoteValue);
+        Task<bool> IsExistNoteTextInListNote(NoteValue noteValue);
+        Task<bool> IsExistListNoteTitle(ListNoteValue listNoteValue);
     }
 }

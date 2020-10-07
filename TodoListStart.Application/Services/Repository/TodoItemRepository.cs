@@ -7,7 +7,7 @@ namespace TodoListStart.Application.Services.Repository
 {
     public partial class Repository
     {
-        public async Task<bool> IsExistNoteInListNote(NoteValue noteValue)
+        public async Task<bool> IsExistNoteTextInListNote(NoteValue noteValue)
         {
             var existItem = await Read<Note>()
                 .AnyAsync(

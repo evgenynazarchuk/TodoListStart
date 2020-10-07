@@ -17,7 +17,7 @@ namespace TodoListStart.Application.Services.Repository
                 .ToListAsync();
             return items;
         }
-        public virtual async Task<bool> IsExistListNoteName(ListNoteValue todoList)
+        public virtual async Task<bool> IsExistListNoteTitle(ListNoteValue todoList)
         {
             var result = await Read<ListNote>()
                 .AnyAsync(l => l.Title == todoList.Title && todoList.Id != l.Id);

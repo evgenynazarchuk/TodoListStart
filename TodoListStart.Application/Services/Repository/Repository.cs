@@ -52,7 +52,7 @@ namespace TodoListStart.Application.Services.Repository
             await _dbContext.SaveChangesAsync();
         }
         public virtual async Task Remove<TModel>(TModel entity)
-            where TModel : class, new()
+            where TModel : class, IEntityIdentity, new()
         {
             _dbContext.Set<TModel>().Remove(entity);
             await _dbContext.SaveChangesAsync();
