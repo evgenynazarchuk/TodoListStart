@@ -6,9 +6,9 @@ namespace TodoListStart.IntegrationTests.Support.Data
 {
     public partial class DataHelper
     {
-        public Note AddTodoItem(NoteValue noteValue = null, int? listNoteId = null)
+        public Note AddNote(NoteValue noteValue = null, int? listNoteId = null)
         {
-            listNoteId ??= AddTodoList().Id;
+            listNoteId ??= AddListNote().Id;
             noteValue ??= NoteValueBuilder
                 .CreateDefaultBuilder()
                 .Configure(i =>

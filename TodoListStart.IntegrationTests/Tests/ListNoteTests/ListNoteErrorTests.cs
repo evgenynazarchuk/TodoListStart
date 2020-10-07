@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TodoListStart.IntegrationTests.Support;
 using TodoListStart.IntegrationTests.Support.Builder;
 using TodoListStart.Application.Constants;
+using System;
 
 namespace TodoListStart.IntegrationTests.Tests.TodoList
 {
@@ -11,65 +12,91 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
     public class ListNoteErrorTests : TestBase
     {
         [TestMethod]
-        public void CreateIncorrectTodoList()
+        public void AddIncorrectListNoteWithEmptyTitle()
         {
             // Arange
-            var list = ListNoteValueBuilder
+            var noteList = ListNoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(l =>
-                {
-                    l.Title = "";
-                })
+                .Build();
+            noteList.Title = "";
+
+            // Act
+            var result = Facade.PostListNote(noteList).Errors;
+
+            // Assert
+            result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
+        }
+        [TestMethod]
+        public void AddIncorrectListNoteWithMoreTitleThan144()
+        {
+            // Arange
+            var noteList = ListNoteValueBuilder
+                .CreateDefaultBuilder()
+                .Build();
+            noteList.Title = "01234567890123456789012345678901234567890123456789012345678901234\\" +
+                "5678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
+
+            // Act
+            var result = Facade.PostListNote(noteList).Errors;
+
+            // Assert
+            result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteTitleIncorrectLenght });
+        }
+        [TestMethod]
+        public void AddIncorrectListNoteWithExistTitle()
+        {
+            // Arange
+            Data.AddListNote();
+            var noteList = ListNoteValueBuilder
+                .CreateDefaultBuilder()
                 .Build();
 
             // Act
-            var result = Facade.PostListNote(list);
+            var result = Facade.PostListNote(noteList).Errors;
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
+            result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteTitleNotUnique });
         }
         [TestMethod]
-        public void UpdateInCorrectTodoList()
+        public void UpdateInCorrectListNoteWithEmptyTitle()
         {
             // Arange
-            var listId = Data.AddTodoList().Id;
-            var list = Facade.GetListNoteById(listId).Value;
-            list.Title = "";
+            var listNoteId = Data.AddListNote().Id;
+            var listNoteValue = Facade.GetListNoteById(listNoteId).Value;
+            listNoteValue.Title = "";
 
             // Act
-            var result = Facade.PutListNote(list);
+            var result = Facade.PutListNote(listNoteValue).Errors;
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
+            result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
         }
         [TestMethod]
-        public void UpdateNotExistTodoList()
+        public void UpdateNotExistListNote()
         {
             // Arange
-            var listId = Data.AddTodoList().Id;
-            var list = Facade.GetListNoteById(listId).Value;
-            list.Id += 1;
+            var listNodeValue = ListNoteValueBuilder.CreateDefaultBuilder().Build();
+            listNodeValue.Id = 1;
 
             // Act
-            var result = Facade.PutListNote(list);
+            var result = Facade.PutListNote(listNodeValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
-        public void DeleteNotExistTodoList()
+        public void DeleteNotExistListNote()
         {
             // Arange
-            var listId = Data.AddTodoList().Id;
 
             // Act
-            var result = Facade.DeleteListNote(listId + 1);
+            var result = Facade.DeleteListNote(1);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
-        public void GetNotExistTodoList()
+        public void GetNotExistListNote()
         {
             // Arange
             // Act

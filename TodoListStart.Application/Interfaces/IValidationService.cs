@@ -8,7 +8,7 @@ namespace TodoListStart.Application.Interfaces
     {
         Task<List<string>> ValidateListNote(ListNoteValue listNoteValue, string httpMethod);
         Task<List<string>> ValidateNote(NoteValue noteValue, string httpMethod);
-        bool IsNull<TValueObj>(TValueObj entityValue);
+        bool IsNull<TValue>(TValue entityValue);
         bool IsNullOrEmptyOrWhiteSpace(string entityField);
     }
 }

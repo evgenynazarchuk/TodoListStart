@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TodoListStart.Application.Controllers
 {
-    public class RestController<TModel, TValueObject> : ControllerBase
+    public class RestController<TModel, TValue> : ControllerBase
         where TModel : class, IEntityIdentity, new()
-        where TValueObject : class, IEntityIdentity, new()
+        where TValue : class, IEntityIdentity, new()
     {
         private readonly IMapper _mapper;
         private readonly IRepository _repo;
@@ -22,7 +22,7 @@ namespace TodoListStart.Application.Controllers
         public virtual async Task<IActionResult> Get()
         {
             var entities = await _repo.Read<TModel>().ToListAsync();
-            var entityValue = _mapper.Map<List<TModel>, List<TValueObject>>(entities);
+            var entityValue = _mapper.Map<List<TModel>, List<TValue>>(entities);
             return Ok(entityValue);
         }
         [HttpGet("{id}")]
@@ -31,7 +31,7 @@ namespace TodoListStart.Application.Controllers
             var entity = await _repo.Find<TModel>(id);
             if (entity != null)
             {
-                var entityValue = _mapper.Map<TModel, TValueObject>(entity);
+                var entityValue = _mapper.Map<TModel, TValue>(entity);
                 return Ok(entityValue);
             }
             else
@@ -40,17 +40,17 @@ namespace TodoListStart.Application.Controllers
             }
         }
         [HttpPost]
-        public virtual async Task<IActionResult> Post([FromBody]TValueObject entitySource)
+        public virtual async Task<IActionResult> Post([FromBody]TValue entitySource)
         {
-            var entity = _mapper.Map<TValueObject, TModel>(entitySource);
+            var entity = _mapper.Map<TValue, TModel>(entitySource);
             await _repo.Add(entity);
-            var entityValue = _mapper.Map<TModel, TValueObject>(entity);
+            var entityValue = _mapper.Map<TModel, TValue>(entity);
             return Ok(entityValue);
         }
         [HttpPut]
-        public virtual async Task<IActionResult> Put([FromBody]TValueObject entitySource)
+        public virtual async Task<IActionResult> Put([FromBody]TValue entitySource)
         {
-            var entityModel = _mapper.Map<TValueObject, TModel>(entitySource);
+            var entityModel = _mapper.Map<TValue, TModel>(entitySource);
             await _repo.Update(entityModel);
             return Ok(entityModel);
         }

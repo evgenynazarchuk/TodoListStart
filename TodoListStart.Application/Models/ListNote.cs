@@ -6,6 +6,6 @@ namespace TodoListStart.Application.Models
 {
     public class ListNote : ListNoteValue, IDateTimeAudit, IEntityIdentity
     {
-        public HashSet<Note> Notes { get; set; }
+        public List<Note> Notes { get; set; }
     }
 }

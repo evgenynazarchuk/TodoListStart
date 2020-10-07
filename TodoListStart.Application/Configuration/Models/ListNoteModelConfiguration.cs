@@ -4,7 +4,7 @@ using TodoListStart.Application.Models;
 
 namespace TodoListStart.Application.Configuration.Models
 {
-    public class TodoListModelConfiguration : IEntityTypeConfiguration<ListNote>
+    public class ListNoteModelConfiguration : IEntityTypeConfiguration<ListNote>
     {
         public void Configure(EntityTypeBuilder<ListNote> builder)
         {

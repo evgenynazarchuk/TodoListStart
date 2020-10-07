@@ -15,8 +15,8 @@ namespace TodoListStart.Application
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new TodoListModelConfiguration());
-            builder.ApplyConfiguration(new TodoItemModelConfiguration());
+            builder.ApplyConfiguration(new ListNoteModelConfiguration());
+            builder.ApplyConfiguration(new NoteModelConfiguration());
         }
     }
 }

@@ -6,7 +6,7 @@ namespace TodoListStart.IntegrationTests.Support.Data
 {
     public partial class DataHelper
     {
-        public ListNote AddTodoList(ListNoteValue listNoteValue = null)
+        public ListNote AddListNote(ListNoteValue listNoteValue = null)
         {
             listNoteValue ??= ListNoteValueBuilder
                 .CreateDefaultBuilder()

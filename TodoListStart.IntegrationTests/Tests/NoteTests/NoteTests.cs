@@ -10,59 +10,123 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
     public class NoteTests : TestBase
     {
         [TestMethod]
-        public void CreateTodoItem()
+        public void CreateNote()
         {
             // Arange
-            var list = Data.AddTodoList();
-            var todoItemValue = NoteValueBuilder
+            var time1 = new DateTime(2020, 02, 03);
+            var listNote = Data.AddListNote();
+            var noteValue = NoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(i => i.ListNoteId = list.Id)
+                .Configure(i => i.ListNoteId = listNote.Id)
                 .Build();
 
             // Act
-            Date.SetCurrentDateTime(new DateTime(2020, 02, 03));
-            var item = Facade.PostNote(todoItemValue).Value;
+            Date.SetCurrentDateTime(time1);
+            var result = Facade.PostNote(noteValue).Value;
 
             // Assert
-            item.Text.Should().Be("Title");
-            item.DueDate.Should().BeNull();
-            item.IsCompleted.Should().BeFalse();
-            item.CreatedDate.Should().Be(new DateTime(2020, 02, 03));
-            item.ModifiedDate.Should().BeNull();
+            result.Text.Should().Be("Title");
+            result.DueDate.Should().BeNull();
+            result.IsCompleted.Should().BeFalse();
+            result.IsPublic.Should().BeFalse();
+            result.CreatedDate.Should().Be(time1);
+            result.ModifiedDate.Should().BeNull();
         }
         [TestMethod]
-        public void UpdateTodoItem()
+        public void CreateNoteWithFullField()
         {
             // Arange
-            Date.SetCurrentDateTime(new DateTime(2020, 02, 03));
-            var itemId = Data.AddTodoItem().Id;
-            var newTodoListId = Data.AddTodoList().Id;
-            var item = Facade.GetNoteById(itemId).Value;
-            item.IsCompleted = true;
-            item.Text = "New Title";
-            item.ListNoteId = newTodoListId;
+            var time1 = new DateTime(2020, 02, 03);
+            var dueDate = DateTime.Today.Add(TimeSpan.FromDays(3));
+            var listNote = Data.AddListNote();
+            var noteValue = NoteValueBuilder.CreateDefaultBuilder().Build();
+            noteValue.ListNoteId = listNote.Id;
+            noteValue.DueDate = dueDate;
+            noteValue.IsPublic = true;
+            noteValue.IsCompleted = true;
 
             // Act
-            Date.SetCurrentDateTime(new DateTime(2020, 03, 03));
-            Facade.PutNote(item);
+            Date.SetCurrentDateTime(time1);
+            var result = Facade.PostNote(noteValue).Value;
 
             // Assert
-            var result = Facade.GetNoteById(itemId).Value;
-            result.Text.Should().Be("New Title");
-            result.DueDate.Should().BeNull();
+            result.Text.Should().Be("Title");
+            result.DueDate.Should().Be(dueDate);
             result.IsCompleted.Should().BeTrue();
-            result.CreatedDate.Should().Be(new DateTime(2020, 02, 03));
-            result.ModifiedDate.Should().Be(new DateTime(2020, 03, 03));
-            result.ListNoteId.Should().Be(newTodoListId);
+            result.IsPublic.Should().BeTrue();
+            result.CreatedDate.Should().Be(time1);
+            result.ModifiedDate.Should().BeNull();
+            result.DueDate.Should().Be(dueDate);
         }
         [TestMethod]
-        public void GetTodoItems()
+        public void UpdateNote()
         {
             // Arange
-            var listId = Data.AddTodoList().Id;
-            Data.AddTodoItem(listNoteId: listId);
-            Data.AddTodoItem(listNoteId: listId);
-            Data.AddTodoItem(listNoteId: listId);
+            var time1 = new DateTime(2019, 02, 03);
+            var time2 = new DateTime(2020, 02, 03);
+            var dueDate = DateTime.Today.Add(TimeSpan.FromDays(3));
+            Date.SetCurrentDateTime(time1);
+            var noteId = Data.AddNote().Id;
+            var newListNoteId = Data.AddListNote().Id;
+            var note = Facade.GetNoteById(noteId).Value;
+            note.IsCompleted = true;
+            note.IsPublic = true;
+            note.Text = "New Title";
+            note.ListNoteId = newListNoteId;
+            note.DueDate = dueDate;
+
+            // Act
+            Date.SetCurrentDateTime(time2);
+            Facade.PutNote(note);
+
+            // Assert
+            var result = Facade.GetNoteById(noteId).Value;
+            result.Text.Should().Be("New Title");
+            result.IsCompleted.Should().BeTrue();
+            result.IsPublic.Should().BeTrue();
+            result.DueDate.Should().Be(dueDate);
+            result.ListNoteId.Should().Be(newListNoteId);
+            result.CreatedDate.Should().Be(time1);
+            result.ModifiedDate.Should().Be(time2);
+        }
+        [TestMethod]
+        public void UpdateNoteWithoutTitle()
+        {
+            // Arange
+            var time1 = new DateTime(2019, 02, 03);
+            var time2 = new DateTime(2020, 02, 03);
+            var dueDate = DateTime.Today.Add(TimeSpan.FromDays(3));
+            Date.SetCurrentDateTime(time1);
+            var noteId = Data.AddNote().Id;
+            var newListNoteId = Data.AddListNote().Id;
+            var note = Facade.GetNoteById(noteId).Value;
+            note.IsCompleted = true;
+            note.IsPublic = true;
+            note.ListNoteId = newListNoteId;
+            note.DueDate = dueDate;
+
+            // Act
+            Date.SetCurrentDateTime(time2);
+            Facade.PutNote(note);
+
+            // Assert
+            var result = Facade.GetNoteById(noteId).Value;
+            result.Text.Should().Be("Title");
+            result.DueDate.Should().Be(dueDate);
+            result.IsCompleted.Should().BeTrue();
+            result.IsPublic.Should().BeTrue();
+            result.ListNoteId.Should().Be(newListNoteId);
+            result.CreatedDate.Should().Be(time1);
+            result.ModifiedDate.Should().Be(time2);
+        }
+        [TestMethod]
+        public void GetNotes()
+        {
+            // Arange
+            var listId = Data.AddListNote().Id;
+            Data.AddNote(listNoteId: listId);
+            Data.AddNote(listNoteId: listId);
+            Data.AddNote(listNoteId: listId);
 
             // Act
             var result = Facade.GetNotes().Value;
@@ -71,11 +135,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             result.Count.Should().Be(3);
         }
         [TestMethod]
-        public void DeleteTodoItem()
+        public void DeleteNote()
         {
             // Arange
-            Data.AddTodoItem();
-            var itemId = Data.AddTodoItem().Id;
+            Data.AddNote();
+            var itemId = Data.AddNote().Id;
 
             // Act
             var result = Facade.DeleteNote(itemId);
