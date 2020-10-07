@@ -7,7 +7,7 @@ namespace TodoListStart.Application.Services.Validation
 {
     public partial class ValidationService
     {
-        public virtual async Task<List<string>> ValidateTodoList(TodoListValue todoList, string method)
+        public virtual async Task<List<string>> ValidateListNote(ListNoteValue todoList, string method)
         {
             var errorMessages = new List<string>();
 
@@ -19,10 +19,10 @@ namespace TodoListStart.Application.Services.Validation
 
             if (IsNullOrEmptyOrWhiteSpace(todoList.Title))
             {
-                errorMessages.Add(ErrorMessages.ListTitleEmpty);
+                errorMessages.Add(ErrorMessages.ListNoteEmpty);
             }
 
-            if (await _repo.IsExistListTitle(todoList))
+            if (await _repo.IsExistListNoteName(todoList))
             {
                 errorMessages.Add(ErrorMessages.ListNotUnique);
             }

@@ -9,9 +9,9 @@ namespace TodoListStart.Application.Services.Validation
         {
             _repo = repo;
         }
-        public bool IsNull<TValueObj>(TValueObj entity)
+        public bool IsNull<TValue>(TValue entityValue)
         {
-            return entity == null ? true : false;
+            return entityValue == null ? true : false;
         }
         public bool IsNullOrEmptyOrWhiteSpace(string field)
         {

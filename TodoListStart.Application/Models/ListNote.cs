@@ -4,8 +4,8 @@ using TodoListStart.Application.Interfaces;
 
 namespace TodoListStart.Application.Models
 {
-    public class TodoList : TodoListValue, IDateTimeAudit, IEntityIdentity
+    public class ListNote : ListNoteValue, IDateTimeAudit, IEntityIdentity
     {
-        public HashSet<TodoItem> TodoItems { get; set; }
+        public HashSet<Note> Notes { get; set; }
     }
 }

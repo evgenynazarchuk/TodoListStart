@@ -17,10 +17,10 @@ namespace TodoListStart.IntegrationTests.Support
     {
         private readonly HttpClient _client;
         private readonly TestServer _server;
-        private readonly AppDbContext _dbContext;
-        private readonly IRepository _repoService;
-        private readonly IMapper _mapperService;
-        private readonly IDateTimeService _dateTimeService;
+        private readonly AppDbContext _db;
+        private readonly IRepository _repo;
+        private readonly IMapper _mapper;
+        private readonly IDateTimeService _date;
         public FacadeHelper Facade { get; set; }
         public DataHelper Data { get; set; }
         public DateHelper Date { get; set; }
@@ -39,19 +39,19 @@ namespace TodoListStart.IntegrationTests.Support
                 }));
 
             _client = _server.CreateClient();
-            _dbContext = _server.Host.Services.GetRequiredService<AppDbContext>();
-            _repoService = _server.Host.Services.GetRequiredService<IRepository>();
-            _dateTimeService = _server.Host.Services.GetRequiredService<IDateTimeService>();
-            _mapperService = _server.Host.Services.GetRequiredService<IMapper>();
+            _db = _server.Host.Services.GetRequiredService<AppDbContext>();
+            _repo = _server.Host.Services.GetRequiredService<IRepository>();
+            _date = _server.Host.Services.GetRequiredService<IDateTimeService>();
+            _mapper = _server.Host.Services.GetRequiredService<IMapper>();
 
             Facade = new FacadeHelper(_client);
-            Data = new DataHelper(_repoService, _mapperService);
-            Date = new DateHelper(_dateTimeService);
+            Data = new DataHelper(_repo, _mapper);
+            Date = new DateHelper(_date);
         }
 
         public void Dispose()
         {
-            _dbContext.Database.EnsureDeleted();
+            _db.Database.EnsureDeleted();
             _server.Dispose();
             _client.Dispose();
         }

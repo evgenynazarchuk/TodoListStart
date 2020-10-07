@@ -9,12 +9,12 @@ namespace TodoListStart.Application.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class TodoItemController : RestController<TodoItem, TodoItemValue>
+    public class NoteController : RestController<Note, NoteValue>
     {
         private readonly IMapper _mapper;
         private readonly IRepository _repo;
         private readonly IValidationService _validator;
-        public TodoItemController(
+        public NoteController(
             IRepository repo, 
             IMapper mapper,
             IValidationService validator
@@ -26,9 +26,9 @@ namespace TodoListStart.Application.Controllers
             _validator = validator;
         }
         [HttpPost]
-        public override async Task<IActionResult> Post([FromBody] TodoItemValue entitySource)
+        public override async Task<IActionResult> Post([FromBody] NoteValue entitySource)
         {
-            var errors = await _validator.ValidateTodoItem(entitySource, "POST");
+            var errors = await _validator.ValidateNote(entitySource, "POST");
             if (errors.Count > 0)
             {
                 return BadRequest(errors);
@@ -36,14 +36,14 @@ namespace TodoListStart.Application.Controllers
             return await base.Post(entitySource);
         }
         [HttpPut]
-        public override async Task<IActionResult> Put([FromBody] TodoItemValue entitySource)
+        public override async Task<IActionResult> Put([FromBody] NoteValue entitySource)
         {
-            if (!await _repo.IsExist<TodoItem>(entitySource.Id))
+            if (!await _repo.IsExist<Note>(entitySource.Id))
             {
                 return NotFound(entitySource);
             }
 
-            var errors = await _validator.ValidateTodoItem(entitySource, "PUT");
+            var errors = await _validator.ValidateNote(entitySource, "PUT");
             if (errors.Count > 0)
             {
                 return BadRequest(errors);

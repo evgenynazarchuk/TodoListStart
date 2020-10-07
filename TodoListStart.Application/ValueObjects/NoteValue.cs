@@ -2,19 +2,18 @@
 using TodoListStart.Application.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using TodoListStart.Application.Constants;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TodoListStart.Application.ValueObjects
 {
-    public class TodoItemValue : IEntityIdentity, IDateTimeAudit
+    public class NoteValue : IEntityIdentity, IDateTimeAudit
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        [StringLength(maximumLength: 140)]
-        public string Body { get; set; }
+        public string Text { get; set; }
         public bool IsCompleted { get; set; }
         public DateTime? DueDate { get; set; }
-        [Required]
-        public int TodoListId { get; set; }
+        public int ListNoteId { get; set; }
+        public bool IsPublic { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }

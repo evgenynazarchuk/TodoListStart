@@ -4,13 +4,13 @@ using TodoListStart.Application.Models;
 
 namespace TodoListStart.Application.Configuration.Models
 {
-    public class TodoItemModelConfiguration : IEntityTypeConfiguration<TodoItem>
+    public class TodoItemModelConfiguration : IEntityTypeConfiguration<Note>
     {
-        public void Configure(EntityTypeBuilder<TodoItem> builder)
+        public void Configure(EntityTypeBuilder<Note> builder)
         {
             builder
-                .HasOne(i => i.TodoList)
-                .WithMany(l => l.TodoItems)
+                .HasOne(i => i.ListNote)
+                .WithMany(l => l.Notes)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

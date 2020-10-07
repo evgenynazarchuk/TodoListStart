@@ -8,19 +8,19 @@ using FluentAssertions;
 namespace TodoListStart.IntegrationTests.Tests.TodoItem
 {
     [TestClass]
-    public class TodoItemBasicErrorTests : TestBase
+    public class NoteErrorTests : TestBase
     {
         [TestMethod]
         public void CreateIncorrectTodoItem()
         {
             // Arange
             var list = Data.AddTodoList();
-            var todoItemValue = TodoItemValueBuilder
+            var todoItemValue = NoteValueBuilder
                 .CreateDefaultBuilder()
                 .Configure(i =>
                 {
-                    i.Title = "";
-                    i.TodoListId = list.Id;
+                    i.Text = "";
+                    i.ListNoteId = list.Id;
                 })
                 .Build();
 
@@ -28,7 +28,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PostTodoItem(todoItemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.ItemTitleEmpty });
+            result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteEmpty });
         }
         [TestMethod]
         public void UpdateIncorrectTodoItem()
@@ -36,13 +36,13 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Assert
             var itemId = Data.AddTodoItem().Id;
             var item = Facade.GetTodoItemById(itemId).Value;
-            item.Title = "";
+            item.Text = "";
 
             // Act
             var result = Facade.PutTodoItem(item);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.ItemTitleEmpty });
+            result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteEmpty });
         }
         [TestMethod]
         public void UpdateNotExistTodoItem()
@@ -50,7 +50,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Assert
             var itemId = Data.AddTodoItem().Id;
             var item = Facade.GetTodoItemById(itemId).Value;
-            item.Title = "New Title Name";
+            item.Text = "New Title Name";
             item.Id += 1;
 
             // Act
@@ -86,51 +86,51 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
         {
             // Arange
             var listId = Data.AddTodoList().Id;
-            Data.AddTodoItem(todoListId: listId);
-            var newItemValue = TodoItemValueBuilder
+            Data.AddTodoItem(listNoteId: listId);
+            var newItemValue = NoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(i => i.TodoListId = listId)
+                .Configure(i => i.ListNoteId = listId)
                 .Build();
 
             // Act
             var result = Facade.PostTodoItem(newItemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ItemNotUnique });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NoteNotUnique });
         }
         [TestMethod]
         public void UpdateExistItemTitleWithExistTitleName()
         {
             // Arange
             var listId = Data.AddTodoList().Id;
-            Data.AddTodoItem(todoListId: listId);
-            var item = TodoItemValueBuilder
+            Data.AddTodoItem(listNoteId: listId);
+            var item = NoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(i => i.Title = "Any title name")
+                .Configure(i => i.Text = "Any title name")
                 .Build();
-            var itemId = Data.AddTodoItem(item, todoListId: listId).Id;
+            var itemId = Data.AddTodoItem(item, listNoteId: listId).Id;
             var itemValue = Facade.GetTodoItemById(itemId).Value;
-            itemValue.Title = "Title";
+            itemValue.Text = "Title";
 
             // Act
             var result = Facade.PutTodoItem(itemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ItemNotUnique });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NoteNotUnique });
         }
         [TestMethod]
         public void CreateTodoItemWithNotExistTodoList()
         {
             // Arange
-            var newItemValue = TodoItemValueBuilder
+            var newItemValue = NoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(i => i.TodoListId = 1)
+                .Configure(i => i.ListNoteId = 1)
                 .Build();
             // Act
             var result = Facade.PostTodoItem(newItemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNotExist });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteNotExist });
         }
         [TestMethod]
         public void UpdateExistItemWithNonExistTodoList()
@@ -138,13 +138,32 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Arange
             var itemId = Data.AddTodoItem().Id;
             var itemValue = Facade.GetTodoItemById(itemId).Value;
-            itemValue.TodoListId = 2;
+            itemValue.ListNoteId = 2;
 
             // Act
             var result = Facade.PutTodoItem(itemValue);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNotExist });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteNotExist });
+        }
+        [TestMethod]
+        public void UpdateExistItemWithNonExistTodoListAndEmptyTitle()
+        {
+            // Arange
+            var itemId = Data.AddTodoItem().Id;
+            var itemValue = Facade.GetTodoItemById(itemId).Value;
+            itemValue.ListNoteId = 2;
+            itemValue.Text = "";
+
+            // Act
+            var result = Facade.PutTodoItem(itemValue);
+
+            // Assert
+            result.Errors.Should().BeEquivalentTo(new List<string>() 
+            { 
+                ErrorMessages.ListNoteNotExist,
+                ErrorMessages.NoteEmpty
+            });
         }
     }
 }

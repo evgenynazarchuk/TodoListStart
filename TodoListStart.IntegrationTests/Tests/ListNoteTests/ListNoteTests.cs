@@ -4,10 +4,10 @@ using System;
 using TodoListStart.IntegrationTests.Support;
 using TodoListStart.IntegrationTests.Support.Builder;
 
-namespace TodoListStart.IntegrationTests.Tests.TodoList
+namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
 {
     [TestClass]
-    public class TodoListBasicTests : TestBase
+    public class ListNoteTests : TestBase
     {
         public static readonly DateTime createTime = new DateTime(2019, 01, 01, 10, 01, 01);
         public static readonly DateTime modifyTime = new DateTime(2019, 01, 01, 10, 01, 01);
@@ -17,7 +17,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
         public void AddTodoList()
         {
             // Arange
-            var todoListValue = TodoListValueBuilder
+            var todoListValue = ListNoteValueBuilder
                 .CreateDefaultBuilder()
                 .Build();
 
@@ -27,7 +27,6 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
 
             // Assert
             todoList.Title.Should().Be("Title");
-            todoList.Description.Should().Be("Description");
             todoList.CreatedDate.Should().Be(createTime);
             todoList.ModifiedDate.Should().BeNull();
         }
@@ -39,7 +38,6 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var todoListId = Data.AddTodoList().Id;
             var todoList = Facade.GetTodoListById(todoListId).Value;
             todoList.Title = newTitle;
-            todoList.Description = newDescription;
 
             // Act
             Date.SetCurrentDateTime(modifyTime);
@@ -48,7 +46,6 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             // Assert
             var result = Facade.GetTodoListById(todoList.Id).Value;
             result.Title.Should().Be(newTitle);
-            result.Description.Should().Be(newDescription);
             result.CreatedDate.Should().Be(createTime);
             result.ModifiedDate.Should().Be(modifyTime);
         }
@@ -64,7 +61,6 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
 
             // Assert
             todoList.Title.Should().Be("Title");
-            todoList.Description.Should().Be("Description");
             todoList.CreatedDate.Should().Be(createTime);
             todoList.ModifiedDate.Should().BeNull();
         }
@@ -101,11 +97,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             // Arange
             var todoList1 = Data.AddTodoList();
             var todoList2 = Data.AddTodoList();
-            Data.AddTodoItem(todoListId: todoList1.Id);
-            Data.AddTodoItem(todoListId: todoList1.Id);
-            Data.AddTodoItem(todoListId: todoList2.Id);
-            Data.AddTodoItem(todoListId: todoList2.Id);
-            Data.AddTodoItem(todoListId: todoList2.Id);
+            Data.AddTodoItem(listNoteId: todoList1.Id);
+            Data.AddTodoItem(listNoteId: todoList1.Id);
+            Data.AddTodoItem(listNoteId: todoList2.Id);
+            Data.AddTodoItem(listNoteId: todoList2.Id);
+            Data.AddTodoItem(listNoteId: todoList2.Id);
 
             // Act
             Facade.DeleteTodoList(todoList1.Id);

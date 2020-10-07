@@ -8,11 +8,11 @@ namespace TodoListStart.Application.Configuration.Models
     {
         public ModelProfile()
         {
-            CreateMap<TodoList, TodoListValue>();
-            CreateMap<TodoListValue, TodoList>();
+            CreateMap<ListNote, ListNoteValue>();
+            CreateMap<ListNoteValue, ListNote>();
 
-            CreateMap<TodoItem, TodoItemValue>();
-            CreateMap<TodoItemValue, TodoItem>();
+            CreateMap<Note, NoteValue>();
+            CreateMap<NoteValue, Note>();
         }
     }
 }

@@ -6,16 +6,11 @@
         public const string NotFound = "Not Found.";
         public const string NullObject = "Object is null.";
 
-        public const string TitleListErrors = "TodoListTitleErrors";
-        public const string TitleItemErrors = "TodoItemTitleErrors";
-        public const string ListGroupErrors = "todo-list-errors";
-        public const string ItemGroupErrors = "todo-item-errors";
+        public const string NoteEmpty = "The Note must be filled";
+        public const string NoteNotUnique = "The Note must be unique in current list notes";
 
-        public const string ItemTitleEmpty = "The field Item Title must be filled";
-        public const string ItemNotUnique = "The todo item must be unique in todo list.";
-
-        public const string ListTitleEmpty = "The field List Title must be filled";
-        public const string ListNotExist = "The field Item TodoListId must be exist.";
-        public const string ListNotUnique = "The todo list must be unique in todo list.";
+        public const string ListNoteEmpty = "The Title must be filled";
+        public const string ListNoteNotExist = "The List Note must be exist.";
+        public const string ListNotUnique = "The List Note must be unique in list notes";
     }
 }

@@ -24,28 +24,25 @@ namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
             // Arrange
             #region init_data
             var todoListCreatedTime = DateTime.Now;
-            var todoListModel = new TodoList()
+            var todoListModel = new ListNote()
             {
                 Id = 1,
                 Title = "List",
-                Description = "Description",
                 CreatedDate = todoListCreatedTime
             };
-            var toValue = new TodoListValue()
+            var toValue = new ListNoteValue()
             {
                 Id = 1,
                 Title = "List",
-                Description = "Description",
                 CreatedDate = todoListCreatedTime
             };
-            var toModel = new TodoList()
+            var toModel = new ListNote()
             {
                 Id = 1,
                 Title = "List",
-                Description = "Description",
                 CreatedDate = todoListCreatedTime
             };
-            var todoListValue = TodoListValueBuilder
+            var todoListValue = ListNoteValueBuilder
                 .CreateDefaultBuilder()
                 .Build();
             #endregion init_data
@@ -54,11 +51,11 @@ namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
             var mockRepo = new Mock<IRepository>();
             var mockMap = new Mock<IMapper>();
             var mockValidator = new Mock<IValidationService>();
-            mockMap.Setup(m => m.Map<TodoListValue, TodoList>(It.IsAny<TodoListValue>())).Returns(toModel);
-            mockRepo.Setup(r => r.Add(It.IsAny<TodoList>())).ReturnsAsync(todoListModel);
-            mockMap.Setup(m => m.Map<TodoList, TodoListValue>(It.IsAny<TodoList>())).Returns(toValue);
-            mockValidator.Setup(v => v.ValidateTodoList(It.IsAny<TodoListValue>(), "POST")).ReturnsAsync(new List<string>());
-            var todoListController = new TodoListController(mockRepo.Object, mockMap.Object, mockValidator.Object);
+            mockMap.Setup(m => m.Map<ListNoteValue, ListNote>(It.IsAny<ListNoteValue>())).Returns(toModel);
+            mockRepo.Setup(r => r.Add(It.IsAny<ListNote>())).ReturnsAsync(todoListModel);
+            mockMap.Setup(m => m.Map<ListNote, ListNoteValue>(It.IsAny<ListNote>())).Returns(toValue);
+            mockValidator.Setup(v => v.ValidateListNote(It.IsAny<ListNoteValue>(), "POST")).ReturnsAsync(new List<string>());
+            var todoListController = new ListNoteController(mockRepo.Object, mockMap.Object, mockValidator.Object);
             #endregion dependency
 
             // Act
@@ -67,8 +64,8 @@ namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
             // Assert
             response.Should().BeOfType<OkObjectResult>();
             var responseObjs = response as OkObjectResult;
-            responseObjs.Value.Should().BeOfType<TodoListValue>();
-            var todoListValueResponse = (responseObjs.Value as TodoListValue);
+            responseObjs.Value.Should().BeOfType<ListNoteValue>();
+            var todoListValueResponse = (responseObjs.Value as ListNoteValue);
 
             responseObjs.StatusCode.Should().Be(200);
             todoListValueResponse.Should().Be(toValue);

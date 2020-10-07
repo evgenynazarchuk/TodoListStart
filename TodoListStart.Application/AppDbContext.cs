@@ -6,8 +6,8 @@ namespace TodoListStart.Application
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<TodoList> TodoLists { get; set; }
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<ListNote> ListNotes { get; set; }
+        public DbSet<Note> Notes { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {

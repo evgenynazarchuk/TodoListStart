@@ -7,10 +7,14 @@ namespace TodoListStart.Application.Services.Repository
 {
     public partial class Repository
     {
-        public async Task<bool> IsExistItemTitleInList(TodoItemValue todoItem)
+        public async Task<bool> IsExistNoteInListNote(NoteValue noteValue)
         {
-            var existItem = await Read<TodoItem>()
-                .AnyAsync(i => i.TodoListId == todoItem.TodoListId && i.Title == todoItem.Title);
+            var existItem = await Read<Note>()
+                .AnyAsync(
+                i => i.ListNoteId == noteValue.ListNoteId 
+                && noteValue.Id != i.Id 
+                && i.Text == noteValue.Text
+                );
             return existItem;
         }
     }

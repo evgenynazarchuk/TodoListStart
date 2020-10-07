@@ -20,10 +20,10 @@ namespace TodoListStart.Application.Interfaces
             where TModel : class, IEntityIdentity, new();
         Task Remove<TModel>(TModel entity)
             where TModel : class, new();
-        Task<IEnumerable<TodoItem>> GetTodoItemsByTodoListId(int id);
+        Task<IEnumerable<Note>> GetNotesByListNoteId(int id);
         Task<bool> IsExist<TModel>(int id)
             where TModel : class, IEntityIdentity, new();
-        Task<bool> IsExistItemTitleInList(TodoItemValue todoItem);
-        Task<bool> IsExistListTitle(TodoListValue todoList);
+        Task<bool> IsExistNoteInListNote(NoteValue noteValue);
+        Task<bool> IsExistListNoteName(ListNoteValue listNoteValue);
     }
 }

@@ -6,14 +6,14 @@ namespace TodoListStart.IntegrationTests.Support.Data
 {
     public partial class DataHelper
     {
-        public TodoList AddTodoList(TodoListValue todoListValue = null)
+        public ListNote AddTodoList(ListNoteValue listNoteValue = null)
         {
-            todoListValue ??= TodoListValueBuilder
+            listNoteValue ??= ListNoteValueBuilder
                 .CreateDefaultBuilder()
                 .Build();
-            var todoList = _mapper.Map<TodoListValue, TodoList>(todoListValue);
-            _repo.Add(todoList).GetAwaiter().GetResult();
-            return todoList;
+            var listNote = _mapper.Map<ListNoteValue, ListNote>(listNoteValue);
+            _repo.Add(listNote).GetAwaiter().GetResult();
+            return listNote;
         }
     }
 }

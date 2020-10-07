@@ -8,13 +8,13 @@ using TodoListStart.Application.Constants;
 namespace TodoListStart.IntegrationTests.Tests.TodoList
 {
     [TestClass]
-    public class TodoListBasicErrorTests : TestBase
+    public class ListNoteErrorTests : TestBase
     {
         [TestMethod]
         public void CreateIncorrectTodoList()
         {
             // Arange
-            var list = TodoListValueBuilder
+            var list = ListNoteValueBuilder
                 .CreateDefaultBuilder()
                 .Configure(l =>
                 {
@@ -26,7 +26,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.PostTodoList(list);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListTitleEmpty });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
         }
         [TestMethod]
         public void UpdateInCorrectTodoList()
@@ -40,7 +40,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var result = Facade.PutTodoList(list);
 
             // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListTitleEmpty });
+            result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
         }
         [TestMethod]
         public void UpdateNotExistTodoList()

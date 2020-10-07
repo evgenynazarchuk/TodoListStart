@@ -3,8 +3,8 @@ using TodoListStart.Application.Interfaces;
 
 namespace TodoListStart.Application.Models
 {
-    public partial class TodoItem : TodoItemValue, IDateTimeAudit, IEntityIdentity
+    public partial class Note : NoteValue, IDateTimeAudit, IEntityIdentity
     {
-        public TodoList TodoList { get; set; }
+        public ListNote ListNote { get; set; }
     }
 }

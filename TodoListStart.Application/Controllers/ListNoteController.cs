@@ -10,12 +10,12 @@ namespace TodoListStart.Application.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class TodoListController : RestController<TodoList, TodoListValue>
+    public class ListNoteController : RestController<ListNote, ListNoteValue>
     {
         private readonly IMapper _mapper;
         private readonly IRepository _repo;
         private readonly IValidationService _validator;
-        public TodoListController(
+        public ListNoteController(
             IRepository repo, 
             IMapper mapper,
             IValidationService validator
@@ -27,16 +27,16 @@ namespace TodoListStart.Application.Controllers
             _validator = validator;
         }
         [HttpGet("{id}/items")]
-        public virtual async Task<IEnumerable<TodoItemValue>> GetItemsById(int id)
+        public virtual async Task<IEnumerable<NoteValue>> GetItemsById(int id)
         {
-            var items = await _repo.GetTodoItemsByTodoListId(id);
-            var itemsValue = _mapper.Map<IEnumerable<TodoItem>, IEnumerable<TodoItemValue>>(items);
-            return itemsValue;
+            var notes = await _repo.GetNotesByListNoteId(id);
+            var notesValue = _mapper.Map<IEnumerable<Note>, IEnumerable<NoteValue>>(notes);
+            return notesValue;
         }
         [HttpPost]
-        public override async Task<IActionResult> Post([FromBody] TodoListValue entitySource)
+        public override async Task<IActionResult> Post([FromBody] ListNoteValue entitySource)
         {
-            var errors = await _validator.ValidateTodoList(entitySource, "POST");
+            var errors = await _validator.ValidateListNote(entitySource, "POST");
             if (errors.Count > 0)
             {
                 return BadRequest(errors); ;
@@ -44,14 +44,14 @@ namespace TodoListStart.Application.Controllers
             return await base.Post(entitySource);
         }
         [HttpPut]
-        public override async Task<IActionResult> Put([FromBody] TodoListValue entitySource)
+        public override async Task<IActionResult> Put([FromBody] ListNoteValue entitySource)
         {
-            if (!await _repo.IsExist<TodoList>(entitySource.Id))
+            if (!await _repo.IsExist<ListNote>(entitySource.Id))
             {
                 return NotFound(entitySource);
             }
 
-            var errors = await _validator.ValidateTodoList(entitySource, "PUT");
+            var errors = await _validator.ValidateListNote(entitySource, "PUT");
             if (errors.Count > 0)
             {
                 return BadRequest(errors);

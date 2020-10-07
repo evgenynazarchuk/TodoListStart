@@ -10,16 +10,16 @@ namespace TodoListStart.Application.Services.Repository
 {
     public partial class Repository
     {
-        public virtual async Task<IEnumerable<TodoItem>> GetTodoItemsByTodoListId(int id)
+        public virtual async Task<IEnumerable<Note>> GetNotesByListNoteId(int id)
         {
-            var items = await Read<TodoItem>()
-                .Where(item => item.TodoListId == id)
+            var items = await Read<Note>()
+                .Where(item => item.ListNoteId == id)
                 .ToListAsync();
             return items;
         }
-        public virtual async Task<bool> IsExistListTitle(TodoListValue todoList)
+        public virtual async Task<bool> IsExistListNoteName(ListNoteValue todoList)
         {
-            var result = await Read<TodoList>()
+            var result = await Read<ListNote>()
                 .AnyAsync(l => l.Title == todoList.Title && todoList.Id != l.Id);
             return result;
         }

@@ -8,7 +8,7 @@ namespace TodoListStart.Application.Services.Validation
 {
     public partial class ValidationService
     {
-        public virtual async Task<List<string>> ValidateTodoItem(TodoItemValue todoItem, string method)
+        public virtual async Task<List<string>> ValidateNote(NoteValue todoItem, string method)
         {
             var errorMessages = new List<string>();
 
@@ -18,20 +18,20 @@ namespace TodoListStart.Application.Services.Validation
                 return errorMessages;
             }
 
-            if (IsNullOrEmptyOrWhiteSpace(todoItem.Title))
+            if (IsNullOrEmptyOrWhiteSpace(todoItem.Text))
             {
-                errorMessages.Add(ErrorMessages.ItemTitleEmpty);
+                errorMessages.Add(ErrorMessages.NoteEmpty);
             }
 
-            var todoIsExist = await _repo.IsExist<TodoList>(todoItem.TodoListId);
+            var todoIsExist = await _repo.IsExist<ListNote>(todoItem.ListNoteId);
             if (!todoIsExist)
             {
-                errorMessages.Add(ErrorMessages.ListNotExist);
+                errorMessages.Add(ErrorMessages.ListNoteNotExist);
             }
 
-            if (await _repo.IsExistItemTitleInList(todoItem))
+            if (await _repo.IsExistNoteInListNote(todoItem))
             {
-                errorMessages.Add(ErrorMessages.ItemNotUnique);
+                errorMessages.Add(ErrorMessages.NoteNotUnique);
             }
 
             return errorMessages;

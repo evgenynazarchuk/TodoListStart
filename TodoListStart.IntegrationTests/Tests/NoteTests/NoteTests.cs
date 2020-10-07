@@ -7,16 +7,16 @@ using TodoListStart.IntegrationTests.Support.Builder;
 namespace TodoListStart.IntegrationTests.Tests.TodoItem
 {
     [TestClass]
-    public class TodoItemBasicTests : TestBase
+    public class NoteTests : TestBase
     {
         [TestMethod]
         public void CreateTodoItem()
         {
             // Arange
             var list = Data.AddTodoList();
-            var todoItemValue = TodoItemValueBuilder
+            var todoItemValue = NoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(i => i.TodoListId = list.Id)
+                .Configure(i => i.ListNoteId = list.Id)
                 .Build();
 
             // Act
@@ -24,8 +24,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var item = Facade.PostTodoItem(todoItemValue).Value;
 
             // Assert
-            item.Title.Should().Be("Title");
-            item.Body.Should().Be("Body");
+            item.Text.Should().Be("Title");
             item.DueDate.Should().BeNull();
             item.IsCompleted.Should().BeFalse();
             item.CreatedDate.Should().Be(new DateTime(2020, 02, 03));
@@ -40,9 +39,8 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var newTodoListId = Data.AddTodoList().Id;
             var item = Facade.GetTodoItemById(itemId).Value;
             item.IsCompleted = true;
-            item.Title = "New Title";
-            item.Body = "New Body";
-            item.TodoListId = newTodoListId;
+            item.Text = "New Title";
+            item.ListNoteId = newTodoListId;
 
             // Act
             Date.SetCurrentDateTime(new DateTime(2020, 03, 03));
@@ -50,22 +48,21 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
 
             // Assert
             var result = Facade.GetTodoItemById(itemId).Value;
-            result.Title.Should().Be("New Title");
-            result.Body.Should().Be("New Body");
+            result.Text.Should().Be("New Title");
             result.DueDate.Should().BeNull();
             result.IsCompleted.Should().BeTrue();
             result.CreatedDate.Should().Be(new DateTime(2020, 02, 03));
             result.ModifiedDate.Should().Be(new DateTime(2020, 03, 03));
-            result.TodoListId.Should().Be(newTodoListId);
+            result.ListNoteId.Should().Be(newTodoListId);
         }
         [TestMethod]
         public void GetTodoItems()
         {
             // Arange
             var listId = Data.AddTodoList().Id;
-            Data.AddTodoItem(todoListId: listId);
-            Data.AddTodoItem(todoListId: listId);
-            Data.AddTodoItem(todoListId: listId);
+            Data.AddTodoItem(listNoteId: listId);
+            Data.AddTodoItem(listNoteId: listId);
+            Data.AddTodoItem(listNoteId: listId);
 
             // Act
             var result = Facade.GetTodoItems().Value;
