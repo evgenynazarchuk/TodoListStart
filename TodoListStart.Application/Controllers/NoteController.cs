@@ -4,6 +4,8 @@ using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 using AutoMapper;
 using TodoListStart.Application.Interfaces;
+using System.Collections.Generic;
+using Microsoft.AspNet.OData;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -50,6 +52,14 @@ namespace TodoListStart.Application.Controllers
             }
 
             return await base.Put(entitySource);
+        }
+        [HttpGet("getallpublic")]
+        //[EnableQuery]
+        public async Task<List<NoteValue>> GetAllPublicNotes()
+        {
+            var publicNotes = await _repo.GetAllPublicNotes();
+            var publicNotesValue = _mapper.Map<List<Note>, List<NoteValue>>(publicNotes);
+            return publicNotesValue;
         }
     }
 }

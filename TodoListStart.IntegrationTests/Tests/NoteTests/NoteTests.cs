@@ -149,5 +149,28 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Value.Should().BeTrue();
             items.Count.Should().Be(1);
         }
+        [TestMethod]
+        public void GetAllPublicNotes()
+        {
+            // Arange
+            var list1 = Data.AddListNote();
+            var list2 = Data.AddListNote();
+            var note1 = NoteValueBuilder.CreateDefaultBuilder().Configure(n => n.IsPublic = true).Build();
+            var note2 = NoteValueBuilder.CreateDefaultBuilder().Configure(n => n.IsPublic = false).Build();
+            var note3 = NoteValueBuilder.CreateDefaultBuilder().Configure(n => n.IsPublic = true).Build();
+            var note4 = NoteValueBuilder.CreateDefaultBuilder().Configure(n => n.IsPublic = true).Build();
+            var note5 = NoteValueBuilder.CreateDefaultBuilder().Configure(n => n.IsPublic = false).Build();
+            Data.AddNote(note1, list1.Id);
+            Data.AddNote(note2, list1.Id);
+            Data.AddNote(note3, list1.Id);
+            Data.AddNote(note4, list1.Id);
+            Data.AddNote(note5, list1.Id);
+
+            // Act
+            var result = Facade.GetAllPublicNotes().Value;
+
+            // Assert
+            result.Count.Should().Be(3);
+        }
     }
 }

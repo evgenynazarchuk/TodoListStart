@@ -15,6 +15,10 @@ using TodoListStart.Application.Interfaces;
 using Microsoft.OpenApi.Models;
 using TodoListStart.Application.Services.Repository;
 using TodoListStart.Application.Services.Validation;
+using Microsoft.AspNet.OData.Builder;
+using TodoListStart.Application.Models;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.OData.Edm;
 
 namespace TodoListStart.Application
 {
@@ -31,6 +35,8 @@ namespace TodoListStart.Application
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IValidationService, ValidationService>();
             services.AddControllers();
+            //services.AddMvc(opt => opt.EnableEndpointRouting = false);
+            services.AddOData();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoStart API", Version = "v1" });
@@ -51,10 +57,24 @@ namespace TodoListStart.Application
 
             app.UseRouting();
 
+            /*app.UseMvc(routeBuilder =>
+            {
+                routeBuilder.EnableDependencyInjection();
+                routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
+                routeBuilder.MapODataServiceRoute("ODataRoute", "odata", GetEdmModel());
+            });*/
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
+        /*private static IEdmModel GetEdmModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<Note>("Notes");
+            builder.EntitySet<ListNote>("ListNotes");
+            return builder.GetEdmModel();
+        }*/
     }
 }

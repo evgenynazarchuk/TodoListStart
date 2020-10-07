@@ -4,10 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using TodoListStart.Application.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OData;
+using Microsoft.OData.Edm;
+using Microsoft.OData.Buffers;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData;
 
 namespace TodoListStart.Application.Controllers
 {
-    public class RestController<TModel, TValue> : ControllerBase
+    public class RestController<TModel, TValue> : ODataController
         where TModel : class, IEntityIdentity, new()
         where TValue : class, IEntityIdentity, new()
     {
@@ -19,13 +24,14 @@ namespace TodoListStart.Application.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        //[EnableQuery]
         public virtual async Task<IActionResult> Get()
         {
             var entities = await _repo.Read<TModel>().ToListAsync();
             var entityValue = _mapper.Map<List<TModel>, List<TValue>>(entities);
             return Ok(entityValue);
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public virtual async Task<IActionResult> Get(int id)
         {
             var entity = await _repo.Find<TModel>(id);
@@ -54,7 +60,7 @@ namespace TodoListStart.Application.Controllers
             await _repo.Update(entityModel);
             return Ok(entityModel);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public virtual async Task<IActionResult> Delete(int id)
         {
             var entity = await _repo.Find<TModel>(id);

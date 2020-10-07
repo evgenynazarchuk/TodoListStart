@@ -25,5 +25,6 @@ namespace TodoListStart.Application.Interfaces
             where TModel : class, IEntityIdentity, new();
         Task<bool> IsExistNoteTextInListNote(NoteValue noteValue);
         Task<bool> IsExistListNoteTitle(ListNoteValue listNoteValue);
+        Task<List<Note>> GetAllPublicNotes();
     }
 }

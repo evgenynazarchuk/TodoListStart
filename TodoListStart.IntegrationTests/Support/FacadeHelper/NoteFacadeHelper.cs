@@ -31,5 +31,10 @@ namespace TodoListStart.IntegrationTests.Support.Facade
             var response = DeleteRequest($"{Urls.NOTE_CONTROLLER}/{id}");
             return response;
         }
+        public RequestResult<List<NoteValue>> GetAllPublicNotes()
+        {
+            var notesValue = GetRequest<List<NoteValue>>($"{Urls.NOTE_CONTROLLER}/getallpublic");
+            return notesValue;
+        }
     }
 }

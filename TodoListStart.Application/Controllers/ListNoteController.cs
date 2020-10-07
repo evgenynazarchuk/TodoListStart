@@ -5,6 +5,7 @@ using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 using AutoMapper;
 using TodoListStart.Application.Interfaces;
+using Microsoft.AspNet.OData;
 
 namespace TodoListStart.Application.Controllers
 {
@@ -25,13 +26,6 @@ namespace TodoListStart.Application.Controllers
             _repo = repo;
             _mapper = mapper;
             _validator = validator;
-        }
-        [HttpGet("{id}/notes")]
-        public virtual async Task<IEnumerable<NoteValue>> GetItemsById(int id)
-        {
-            var notes = await _repo.GetNotesByListNoteId(id);
-            var notesValue = _mapper.Map<IEnumerable<Note>, IEnumerable<NoteValue>>(notes);
-            return notesValue;
         }
         [HttpPost]
         public override async Task<IActionResult> Post([FromBody] ListNoteValue entitySource)
@@ -58,6 +52,14 @@ namespace TodoListStart.Application.Controllers
             }
 
             return await base.Put(entitySource);
+        }
+        [HttpGet("{id:int}/notes")]
+        [EnableQuery]
+        public async Task<IEnumerable<NoteValue>> GetNotesById(int id)
+        {
+            var notes = await _repo.GetNotesByListNoteId(id);
+            var notesValue = _mapper.Map<IEnumerable<Note>, IEnumerable<NoteValue>>(notes);
+            return notesValue;
         }
     }
 }
