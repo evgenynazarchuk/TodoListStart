@@ -6,7 +6,7 @@ using TodoListStart.Application.Constants;
 using FluentAssertions;
 using System;
 
-namespace TodoListStart.IntegrationTests.Tests.TodoItem
+namespace TodoListStart.IntegrationTests.Tests.NoteTests
 {
     [TestClass]
     public class NoteErrorTests : TestBase

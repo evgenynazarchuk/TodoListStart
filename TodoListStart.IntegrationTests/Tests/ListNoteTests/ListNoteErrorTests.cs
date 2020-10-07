@@ -6,7 +6,7 @@ using TodoListStart.IntegrationTests.Support.Builder;
 using TodoListStart.Application.Constants;
 using System;
 
-namespace TodoListStart.IntegrationTests.Tests.TodoList
+namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
 {
     [TestClass]
     public class ListNoteErrorTests : TestBase

@@ -4,7 +4,7 @@ using System;
 using TodoListStart.IntegrationTests.Support;
 using TodoListStart.IntegrationTests.Support.Builder;
 
-namespace TodoListStart.IntegrationTests.Tests.TodoItem
+namespace TodoListStart.IntegrationTests.Tests.NoteTests
 {
     [TestClass]
     public class NoteTests : TestBase
