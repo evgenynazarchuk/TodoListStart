@@ -1,6 +1,7 @@
 ﻿using System;
 using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
+using TodoListStart.IntegrationTests.Support.Constants;
 
 namespace TodoListStart.IntegrationTests.Support.Builder
 {
@@ -19,11 +20,11 @@ namespace TodoListStart.IntegrationTests.Support.Builder
         {
             var todoList = new NoteValue()
             {
-                Text = "Text",
-                ListNoteId = 1,
-                IsCompleted = false,
-                IsPublic = false,
-                DueDate = null
+                Text = DefaultValues.NoteText,
+                ListNoteId = DefaultValues.NoteListNoteId,
+                IsCompleted = DefaultValues.NoteIsCompleted,
+                IsPublic = DefaultValues.NoteIsPublic,
+                DueDate = DefaultValues.NoteDueDate
             };
             return new NoteValueBuilder(todoList);
         }

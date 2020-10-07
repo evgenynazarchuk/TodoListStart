@@ -1,5 +1,6 @@
 ﻿using System;
 using TodoListStart.Application.ValueObjects;
+using TodoListStart.IntegrationTests.Support.Constants;
 
 namespace TodoListStart.IntegrationTests.Support.Builder
 {
@@ -18,7 +19,7 @@ namespace TodoListStart.IntegrationTests.Support.Builder
         {
             var todoList = new ListNoteValue()
             {
-                Title = "Title"
+                Title = DefaultValues.ListNoteTitle
             };
             return new ListNoteValueBuilder(todoList);
         }
