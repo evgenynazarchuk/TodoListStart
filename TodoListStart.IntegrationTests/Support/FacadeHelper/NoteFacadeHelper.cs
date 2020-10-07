@@ -6,27 +6,27 @@ namespace TodoListStart.IntegrationTests.Support.Facade
 {
     public partial class FacadeHelper
     {
-        public RequestResult<List<NoteValue>> GetTodoItems()
+        public RequestResult<List<NoteValue>> GetNotes()
         {
-            var todoItems = GetRequest<List<NoteValue>>($"{Urls.NOTE_CONTROLLER}");
-            return todoItems;
+            var notesValue = GetRequest<List<NoteValue>>($"{Urls.NOTE_CONTROLLER}");
+            return notesValue;
         }
-        public RequestResult<NoteValue> GetTodoItemById(int id)
+        public RequestResult<NoteValue> GetNoteById(int id)
         {
-            var todoItem = GetRequest<NoteValue>($"{Urls.NOTE_CONTROLLER}/{id}");
-            return todoItem;
+            var noteValue = GetRequest<NoteValue>($"{Urls.NOTE_CONTROLLER}/{id}");
+            return noteValue;
         }
-        public RequestResult<NoteValue> PostTodoItem(NoteValue todoItemValue)
+        public RequestResult<NoteValue> PostNote(NoteValue noteValue)
         {
-            var response = PostRequest($"{Urls.NOTE_CONTROLLER}", todoItemValue);
+            var response = PostRequest($"{Urls.NOTE_CONTROLLER}", noteValue);
             return response;
         }
-        public RequestResult<bool> PutTodoItem(NoteValue todoItemValue)
+        public RequestResult<bool> PutNote(NoteValue noteValue)
         {
-            var response = PutRequest($"{Urls.NOTE_CONTROLLER}", todoItemValue);
+            var response = PutRequest($"{Urls.NOTE_CONTROLLER}", noteValue);
             return response;
         }
-        public RequestResult<bool> DeleteTodoItem(int id)
+        public RequestResult<bool> DeleteNote(int id)
         {
             var response = DeleteRequest($"{Urls.NOTE_CONTROLLER}/{id}");
             return response;

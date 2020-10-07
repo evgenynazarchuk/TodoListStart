@@ -6,35 +6,35 @@ namespace TodoListStart.IntegrationTests.Support.Facade
 {
     public partial class FacadeHelper
     {
-        public RequestResult<List<ListNoteValue>> GetTodoLists()
+        public RequestResult<List<ListNoteValue>> GetListNotes()
         {
-            var todoLists = GetRequest<List<ListNoteValue>>($"{Urls.LISTNOTE_CONTROLLER}");
-            return todoLists;
+            var listNotesValue = GetRequest<List<ListNoteValue>>($"{Urls.LISTNOTE_CONTROLLER}");
+            return listNotesValue;
         }
-        public RequestResult<ListNoteValue> GetTodoListById(int id)
+        public RequestResult<ListNoteValue> GetListNoteById(int id)
         {
             var todoList = GetRequest<ListNoteValue>($"{Urls.LISTNOTE_CONTROLLER}/{id}");
             return todoList;
         }
-        public RequestResult<ListNoteValue> PostTodoList(ListNoteValue todoListValue)
+        public RequestResult<ListNoteValue> PostListNote(ListNoteValue listNoteValue)
         {
-            var response = PostRequest($"{Urls.LISTNOTE_CONTROLLER}", todoListValue);
+            var response = PostRequest($"{Urls.LISTNOTE_CONTROLLER}", listNoteValue);
             return response;
         }
-        public RequestResult<bool> PutTodoList(ListNoteValue todoListValue)
+        public RequestResult<bool> PutListNote(ListNoteValue listNoteValue)
         {
-            var response = PutRequest($"{Urls.LISTNOTE_CONTROLLER}", todoListValue);
+            var response = PutRequest($"{Urls.LISTNOTE_CONTROLLER}", listNoteValue);
             return response;
         }
-        public RequestResult<bool> DeleteTodoList(int id)
+        public RequestResult<bool> DeleteListNote(int id)
         {
             var response = DeleteRequest($"{Urls.LISTNOTE_CONTROLLER}/{id}");
             return response;
         }
-        public RequestResult<List<NoteValue>> GetItemsByListId(int id)
+        public RequestResult<List<NoteValue>> GetNotesByListNoteId(int id)
         {
-            var todoItems = GetRequest<List<NoteValue>>($"{Urls.LISTNOTE_CONTROLLER}/{id}/items");
-            return todoItems;
+            var notesValue = GetRequest<List<NoteValue>>($"{Urls.LISTNOTE_CONTROLLER}/{id}/notes");
+            return notesValue;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
                 .Build();
 
             // Act
-            var result = Facade.PostTodoItem(todoItemValue);
+            var result = Facade.PostNote(todoItemValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteEmpty });
@@ -35,11 +35,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
         {
             // Assert
             var itemId = Data.AddTodoItem().Id;
-            var item = Facade.GetTodoItemById(itemId).Value;
+            var item = Facade.GetNoteById(itemId).Value;
             item.Text = "";
 
             // Act
-            var result = Facade.PutTodoItem(item);
+            var result = Facade.PutNote(item);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteEmpty });
@@ -49,12 +49,12 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
         {
             // Assert
             var itemId = Data.AddTodoItem().Id;
-            var item = Facade.GetTodoItemById(itemId).Value;
+            var item = Facade.GetNoteById(itemId).Value;
             item.Text = "New Title Name";
             item.Id += 1;
 
             // Act
-            var result = Facade.PutTodoItem(item);
+            var result = Facade.PutNote(item);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
@@ -65,7 +65,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Assert
 
             // Act
-            var result = Facade.GetTodoItemById(1);
+            var result = Facade.GetNoteById(1);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
@@ -76,7 +76,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             // Assert
 
             // Act
-            var result = Facade.DeleteTodoItem(1);
+            var result = Facade.DeleteNote(1);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
@@ -93,7 +93,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
                 .Build();
 
             // Act
-            var result = Facade.PostTodoItem(newItemValue);
+            var result = Facade.PostNote(newItemValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NoteNotUnique });
@@ -109,11 +109,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
                 .Configure(i => i.Text = "Any title name")
                 .Build();
             var itemId = Data.AddTodoItem(item, listNoteId: listId).Id;
-            var itemValue = Facade.GetTodoItemById(itemId).Value;
+            var itemValue = Facade.GetNoteById(itemId).Value;
             itemValue.Text = "Title";
 
             // Act
-            var result = Facade.PutTodoItem(itemValue);
+            var result = Facade.PutNote(itemValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NoteNotUnique });
@@ -127,7 +127,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
                 .Configure(i => i.ListNoteId = 1)
                 .Build();
             // Act
-            var result = Facade.PostTodoItem(newItemValue);
+            var result = Facade.PostNote(newItemValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteNotExist });
@@ -137,11 +137,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
         {
             // Arange
             var itemId = Data.AddTodoItem().Id;
-            var itemValue = Facade.GetTodoItemById(itemId).Value;
+            var itemValue = Facade.GetNoteById(itemId).Value;
             itemValue.ListNoteId = 2;
 
             // Act
-            var result = Facade.PutTodoItem(itemValue);
+            var result = Facade.PutNote(itemValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteNotExist });
@@ -151,12 +151,12 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
         {
             // Arange
             var itemId = Data.AddTodoItem().Id;
-            var itemValue = Facade.GetTodoItemById(itemId).Value;
+            var itemValue = Facade.GetNoteById(itemId).Value;
             itemValue.ListNoteId = 2;
             itemValue.Text = "";
 
             // Act
-            var result = Facade.PutTodoItem(itemValue);
+            var result = Facade.PutNote(itemValue);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() 

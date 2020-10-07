@@ -23,7 +23,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
                 .Build();
 
             // Act
-            var result = Facade.PostTodoList(list);
+            var result = Facade.PostListNote(list);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
@@ -33,11 +33,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
         {
             // Arange
             var listId = Data.AddTodoList().Id;
-            var list = Facade.GetTodoListById(listId).Value;
+            var list = Facade.GetListNoteById(listId).Value;
             list.Title = "";
 
             // Act
-            var result = Facade.PutTodoList(list);
+            var result = Facade.PutListNote(list);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
@@ -47,11 +47,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
         {
             // Arange
             var listId = Data.AddTodoList().Id;
-            var list = Facade.GetTodoListById(listId).Value;
+            var list = Facade.GetListNoteById(listId).Value;
             list.Id += 1;
 
             // Act
-            var result = Facade.PutTodoList(list);
+            var result = Facade.PutListNote(list);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
@@ -63,7 +63,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
             var listId = Data.AddTodoList().Id;
 
             // Act
-            var result = Facade.DeleteTodoList(listId + 1);
+            var result = Facade.DeleteListNote(listId + 1);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
@@ -73,7 +73,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoList
         {
             // Arange
             // Act
-            var result = Facade.GetTodoListById(100);
+            var result = Facade.GetListNoteById(100);
 
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });

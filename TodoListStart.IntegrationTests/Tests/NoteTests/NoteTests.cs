@@ -21,7 +21,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
 
             // Act
             Date.SetCurrentDateTime(new DateTime(2020, 02, 03));
-            var item = Facade.PostTodoItem(todoItemValue).Value;
+            var item = Facade.PostNote(todoItemValue).Value;
 
             // Assert
             item.Text.Should().Be("Title");
@@ -37,17 +37,17 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             Date.SetCurrentDateTime(new DateTime(2020, 02, 03));
             var itemId = Data.AddTodoItem().Id;
             var newTodoListId = Data.AddTodoList().Id;
-            var item = Facade.GetTodoItemById(itemId).Value;
+            var item = Facade.GetNoteById(itemId).Value;
             item.IsCompleted = true;
             item.Text = "New Title";
             item.ListNoteId = newTodoListId;
 
             // Act
             Date.SetCurrentDateTime(new DateTime(2020, 03, 03));
-            Facade.PutTodoItem(item);
+            Facade.PutNote(item);
 
             // Assert
-            var result = Facade.GetTodoItemById(itemId).Value;
+            var result = Facade.GetNoteById(itemId).Value;
             result.Text.Should().Be("New Title");
             result.DueDate.Should().BeNull();
             result.IsCompleted.Should().BeTrue();
@@ -65,7 +65,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             Data.AddTodoItem(listNoteId: listId);
 
             // Act
-            var result = Facade.GetTodoItems().Value;
+            var result = Facade.GetNotes().Value;
 
             // Assert
             result.Count.Should().Be(3);
@@ -78,8 +78,8 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var itemId = Data.AddTodoItem().Id;
 
             // Act
-            var result = Facade.DeleteTodoItem(itemId);
-            var items = Facade.GetTodoItems().Value;
+            var result = Facade.DeleteNote(itemId);
+            var items = Facade.GetNotes().Value;
 
             // Assert
             result.Value.Should().BeTrue();

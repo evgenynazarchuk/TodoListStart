@@ -23,7 +23,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
 
             // Act
             Date.SetCurrentDateTime(createTime);
-            var todoList = Facade.PostTodoList(todoListValue).Value;
+            var todoList = Facade.PostListNote(todoListValue).Value;
 
             // Assert
             todoList.Title.Should().Be("Title");
@@ -36,15 +36,15 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             // Arange
             Date.SetCurrentDateTime(createTime);
             var todoListId = Data.AddTodoList().Id;
-            var todoList = Facade.GetTodoListById(todoListId).Value;
+            var todoList = Facade.GetListNoteById(todoListId).Value;
             todoList.Title = newTitle;
 
             // Act
             Date.SetCurrentDateTime(modifyTime);
-            Facade.PutTodoList(todoList);
+            Facade.PutListNote(todoList);
 
             // Assert
-            var result = Facade.GetTodoListById(todoList.Id).Value;
+            var result = Facade.GetListNoteById(todoList.Id).Value;
             result.Title.Should().Be(newTitle);
             result.CreatedDate.Should().Be(createTime);
             result.ModifiedDate.Should().Be(modifyTime);
@@ -57,7 +57,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             var todoId = Data.AddTodoList().Id;
 
             // Act
-            var todoList = Facade.GetTodoListById(todoId).Value;
+            var todoList = Facade.GetListNoteById(todoId).Value;
 
             // Assert
             todoList.Title.Should().Be("Title");
@@ -74,7 +74,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             Data.AddTodoList();
 
             // Act
-            var todoLists = Facade.GetTodoLists().Value;
+            var todoLists = Facade.GetListNotes().Value;
 
             // Assert
             todoLists.Count.Should().Be(3);
@@ -86,7 +86,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             var listId = Data.AddTodoList().Id;
 
             // Act
-            var result = Facade.DeleteTodoList(listId).Value;
+            var result = Facade.DeleteListNote(listId).Value;
 
             // Assert
             result.Should().BeTrue();
@@ -104,10 +104,10 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             Data.AddTodoItem(listNoteId: todoList2.Id);
 
             // Act
-            Facade.DeleteTodoList(todoList1.Id);
+            Facade.DeleteListNote(todoList1.Id);
 
             // Assert
-            var items = Facade.GetTodoItems().Value;
+            var items = Facade.GetNotes().Value;
             items.Count.Should().Be(3);
         }
     }

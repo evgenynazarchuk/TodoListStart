@@ -26,7 +26,7 @@ namespace TodoListStart.Application.Controllers
             _mapper = mapper;
             _validator = validator;
         }
-        [HttpGet("{id}/items")]
+        [HttpGet("{id}/notes")]
         public virtual async Task<IEnumerable<NoteValue>> GetItemsById(int id)
         {
             var notes = await _repo.GetNotesByListNoteId(id);
