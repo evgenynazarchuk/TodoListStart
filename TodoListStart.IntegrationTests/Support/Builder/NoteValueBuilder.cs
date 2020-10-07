@@ -19,7 +19,7 @@ namespace TodoListStart.IntegrationTests.Support.Builder
         {
             var todoList = new NoteValue()
             {
-                Text = "Title",
+                Text = "Text",
                 ListNoteId = 1,
                 IsCompleted = false,
                 IsPublic = false,

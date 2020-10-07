@@ -25,7 +25,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PostNote(noteValue).Value;
 
             // Assert
-            result.Text.Should().Be("Title");
+            result.Text.Should().Be("Text");
             result.DueDate.Should().BeNull();
             result.IsCompleted.Should().BeFalse();
             result.IsPublic.Should().BeFalse();
@@ -50,7 +50,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             var result = Facade.PostNote(noteValue).Value;
 
             // Assert
-            result.Text.Should().Be("Title");
+            result.Text.Should().Be("Text");
             result.DueDate.Should().Be(dueDate);
             result.IsCompleted.Should().BeTrue();
             result.IsPublic.Should().BeTrue();
@@ -111,7 +111,7 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
 
             // Assert
             var result = Facade.GetNoteById(noteId).Value;
-            result.Text.Should().Be("Title");
+            result.Text.Should().Be("Text");
             result.DueDate.Should().Be(dueDate);
             result.IsCompleted.Should().BeTrue();
             result.IsPublic.Should().BeTrue();

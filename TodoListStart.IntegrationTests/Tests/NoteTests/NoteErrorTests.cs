@@ -169,11 +169,11 @@ namespace TodoListStart.IntegrationTests.Tests.TodoItem
             Data.AddNote(listNoteId: listId);
             var item = NoteValueBuilder
                 .CreateDefaultBuilder()
-                .Configure(i => i.Text = "Text")
+                .Configure(i => i.Text = "New Text")
                 .Build();
             var itemId = Data.AddNote(item, listNoteId: listId).Id;
             var itemValue = Facade.GetNoteById(itemId).Value;
-            itemValue.Text = "Title";
+            itemValue.Text = "Text";
 
             // Act
             var result = Facade.PutNote(itemValue);
