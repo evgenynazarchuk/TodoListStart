@@ -2,12 +2,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TodoListStart.Application.Controllers;
 using AutoMapper;
-using TodoListStart.Application.ApplicationServices;
 using TodoListStart.IntegrationTests.Support.Builder;
 using TodoListStart.Application.Models;
 using TodoListStart.Application.ValueObjects;
 using System;
-using System.Threading.Tasks;
 using TodoListStart.Application.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +17,7 @@ namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
     public class TodoListControllerTests
     {
         [TestMethod]
-        public void TodoListPostRequest()
+        public void ListNotePostShouldBeAddListNote()
         {
             // Arrange
             #region init_data
