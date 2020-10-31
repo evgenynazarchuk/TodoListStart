@@ -10,7 +10,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
     public class NoteTests : TestBase
     {
         [TestMethod]
-        public void CreateNote()
+        public void PostNoteShouldBeCreateNoteWithSpecifiedDate()
         {
             // Arange
             var time1 = new DateTime(2020, 02, 03);
@@ -33,7 +33,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.ModifiedDate.Should().BeNull();
         }
         [TestMethod]
-        public void CreateNoteWithFullField()
+        public void PostNoteShouldBeFullFilledNote()
         {
             // Arange
             var time1 = new DateTime(2020, 02, 03);
@@ -59,7 +59,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.DueDate.Should().Be(dueDate);
         }
         [TestMethod]
-        public void UpdateNote()
+        public void PutNoteShouldBeUpdateNoteWithSpecifiedDate()
         {
             // Arange
             var time1 = new DateTime(2019, 02, 03);
@@ -90,37 +90,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.ModifiedDate.Should().Be(time2);
         }
         [TestMethod]
-        public void UpdateNoteWithoutTitle()
-        {
-            // Arange
-            var time1 = new DateTime(2019, 02, 03);
-            var time2 = new DateTime(2020, 02, 03);
-            var dueDate = DateTime.Today.Add(TimeSpan.FromDays(3));
-            Date.SetCurrentDateTime(time1);
-            var noteId = Data.AddNote().Id;
-            var newListNoteId = Data.AddListNote().Id;
-            var note = Facade.GetNoteById(noteId).Value;
-            note.IsCompleted = true;
-            note.IsPublic = true;
-            note.ListNoteId = newListNoteId;
-            note.DueDate = dueDate;
-
-            // Act
-            Date.SetCurrentDateTime(time2);
-            Facade.PutNote(note);
-
-            // Assert
-            var result = Facade.GetNoteById(noteId).Value;
-            result.Text.Should().Be("Text");
-            result.DueDate.Should().Be(dueDate);
-            result.IsCompleted.Should().BeTrue();
-            result.IsPublic.Should().BeTrue();
-            result.ListNoteId.Should().Be(newListNoteId);
-            result.CreatedDate.Should().Be(time1);
-            result.ModifiedDate.Should().Be(time2);
-        }
-        [TestMethod]
-        public void GetNotes()
+        public void GetNotesShouldBeReturnNotes()
         {
             // Arange
             var listId = Data.AddListNote().Id;
@@ -135,7 +105,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Count.Should().Be(3);
         }
         [TestMethod]
-        public void DeleteNote()
+        public void DeleteNoteShouldBeDeleteNote()
         {
             // Arange
             Data.AddNote();
@@ -143,14 +113,14 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
 
             // Act
             var result = Facade.DeleteNote(itemId);
-            var items = Facade.GetNotes().Value;
 
             // Assert
+            var items = Facade.GetNotes().Value;
             result.Value.Should().BeTrue();
             items.Count.Should().Be(1);
         }
         [TestMethod]
-        public void GetAllPublicNotes()
+        public void GetAllPublicNotesShouldBeReturnPublicNotes()
         {
             // Arange
             var list1 = Data.AddListNote();

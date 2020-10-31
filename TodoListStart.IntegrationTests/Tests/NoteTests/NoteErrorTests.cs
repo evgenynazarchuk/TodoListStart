@@ -12,7 +12,28 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
     public class NoteErrorTests : TestBase
     {
         [TestMethod]
-        public void CreateIncorrectNoteWithTextEmpty()
+        public void PutNoteShouldBeReturnManyErrors()
+        {
+            // Arange
+            var itemId = Data.AddNote().Id;
+            var itemValue = Facade.GetNoteById(itemId).Value;
+            itemValue.ListNoteId = 2;
+            itemValue.Text = "";
+            itemValue.DueDate = DateTime.Today - TimeSpan.FromDays(1);
+
+            // Act
+            var result = Facade.PutNote(itemValue);
+
+            // Assert
+            result.Errors.Should().BeEquivalentTo(new List<string>()
+            {
+                ErrorMessages.ListNoteNotExist,
+                ErrorMessages.NoteEmpty,
+                ErrorMessages.NoteDueDateLessCurrentDate
+            });
+        }
+        [TestMethod]
+        public void PostNoteShouldBeReturnNoteEmptyError()
         {
             // Arange
             var list = Data.AddListNote();
@@ -32,7 +53,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteEmpty });
         }
         [TestMethod]
-        public void CreateIncorrectNoteWithIncorrectDueDate()
+        public void PostNoteShouldBeReturnNoteDueDateLessCurrentDateError()
         {
             // Arange
             var list = Data.AddListNote();
@@ -52,7 +73,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteDueDateLessCurrentDate });
         }
         [TestMethod]
-        public void CreateIncorrectNoteWithTextMore144()
+        public void PostNoteShouldBeReturnNoteTextIncorrectLenghtError()
         {
             // Arange
             var list = Data.AddListNote();
@@ -74,7 +95,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteTextIncorrectLenght });
         }
         [TestMethod]
-        public void CreateExistNoteText()
+        public void PostNoteShouldBeReturnNoteNotUniqueError()
         {
             // Arange
             var listId = Data.AddListNote().Id;
@@ -91,7 +112,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NoteNotUnique });
         }
         [TestMethod]
-        public void CreateNoteWithNotExistListNote()
+        public void PostNoteShouldBeReturnListNoteNotExistError()
         {
             // Arange
             var newItemValue = NoteValueBuilder
@@ -105,7 +126,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteNotExist });
         }
         [TestMethod]
-        public void UpdateIncorrectNoteWithTextEmpty()
+        public void PutNoteShouldBeReturnNoteEmptyError()
         {
             // Assert
             var itemId = Data.AddNote().Id;
@@ -119,7 +140,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteEmpty });
         }
         [TestMethod]
-        public void UpdateIncorrectNoteWithMore144()
+        public void PutNoteShouldBeReturnNoteTextIncorrectLenghtError()
         {
             // Assert
             var itemId = Data.AddNote().Id;
@@ -135,7 +156,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteTextIncorrectLenght });
         }
         [TestMethod]
-        public void UpdateIncorrectNoteWithIncorrectDueDate()
+        public void PutNoteShouldBeReturnNoteDueDateLessCurrentDateError()
         {
             // Assert
             var itemId = Data.AddNote().Id;
@@ -149,7 +170,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string> { ErrorMessages.NoteDueDateLessCurrentDate });
         }
         [TestMethod]
-        public void UpdateNotExistListNote()
+        public void PutNoteShouldBeReturnNotFoundError()
         {
             // Assert
             var noteValue = NoteValueBuilder.CreateDefaultBuilder().Build();
@@ -162,7 +183,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
-        public void UpdateExistNoteTextWithExistText()
+        public void PutNoteShouldBeReturnNoteNotUniqueError()
         {
             // Arange
             var listId = Data.AddListNote().Id;
@@ -182,7 +203,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NoteNotUnique });
         }
         [TestMethod]
-        public void UpdateExistItemWithNonExistTodoList()
+        public void PutNoteShouldBeReturnListNoteNotExistError()
         {
             // Arange
             var itemId = Data.AddNote().Id;
@@ -196,28 +217,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteNotExist });
         }
         [TestMethod]
-        public void UpdateExistNoteWithManyError()
-        {
-            // Arange
-            var itemId = Data.AddNote().Id;
-            var itemValue = Facade.GetNoteById(itemId).Value;
-            itemValue.ListNoteId = 2;
-            itemValue.Text = "";
-            itemValue.DueDate = DateTime.Today - TimeSpan.FromDays(1);
-
-            // Act
-            var result = Facade.PutNote(itemValue);
-
-            // Assert
-            result.Errors.Should().BeEquivalentTo(new List<string>()
-            {
-                ErrorMessages.ListNoteNotExist,
-                ErrorMessages.NoteEmpty,
-                ErrorMessages.NoteDueDateLessCurrentDate
-            });
-        }
-        [TestMethod]
-        public void GetNotExistNote()
+        public void GetNoteByIdShouldBeReturnNotFoundError()
         {
             // Assert
 
@@ -228,7 +228,7 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
-        public void DeleteNotExistNote()
+        public void DeleteNoteShouldBeReturnNotFoundError()
         {
             // Assert
 

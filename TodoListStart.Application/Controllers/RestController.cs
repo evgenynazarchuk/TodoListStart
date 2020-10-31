@@ -24,7 +24,6 @@ namespace TodoListStart.Application.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        //[EnableQuery]
         public virtual async Task<IActionResult> Get()
         {
             var entities = await _repo.Read<TModel>().ToListAsync();

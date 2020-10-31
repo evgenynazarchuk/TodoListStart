@@ -12,7 +12,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
     public class ListNoteErrorTests : TestBase
     {
         [TestMethod]
-        public void AddIncorrectListNoteWithEmptyTitle()
+        public void PostListNoteShouldBeReturnListNoteEmptyError()
         {
             // Arange
             var noteList = ListNoteValueBuilder
@@ -27,7 +27,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
         }
         [TestMethod]
-        public void AddIncorrectListNoteWithMoreTitleThan144()
+        public void PostListNoteShouldBeReturnListNoteTitleIncorrectLenghtError()
         {
             // Arange
             var noteList = ListNoteValueBuilder
@@ -43,7 +43,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteTitleIncorrectLenght });
         }
         [TestMethod]
-        public void AddIncorrectListNoteWithExistTitle()
+        public void PostListNoteShouldBeReturnListNoteTitleNotUniqueError()
         {
             // Arange
             Data.AddListNote();
@@ -58,7 +58,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteTitleNotUnique });
         }
         [TestMethod]
-        public void UpdateInCorrectListNoteWithEmptyTitle()
+        public void PutListNoteShouldBeReturnListNoteEmptyError()
         {
             // Arange
             var listNoteId = Data.AddListNote().Id;
@@ -72,7 +72,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Should().BeEquivalentTo(new List<string>() { ErrorMessages.ListNoteEmpty });
         }
         [TestMethod]
-        public void UpdateNotExistListNote()
+        public void PutListNoteShouldBeReturnNotFoundError()
         {
             // Arange
             var listNodeValue = ListNoteValueBuilder.CreateDefaultBuilder().Build();
@@ -85,7 +85,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
-        public void DeleteNotExistListNote()
+        public void DeleteListNoteShouldBeReturnNotFoundError()
         {
             // Arange
 
@@ -96,9 +96,10 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
         [TestMethod]
-        public void GetNotExistListNote()
+        public void GetListNoteByIdShouldBeReturnNotFoundError()
         {
             // Arange
+
             // Act
             var result = Facade.GetListNoteById(100);
 

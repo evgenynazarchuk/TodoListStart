@@ -82,10 +82,9 @@ namespace TodoListStart.IntegrationTests.Support.Facade
             {
                 return new RequestResult<bool>().AddError(ErrorMessages.NotFound);
             }
-
-            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 var errorList = JsonSerializer.Deserialize<List<string>>(content, JsonOptionCamelCase);
                 return new RequestResult<bool>().AddErrors(errorList);
             }

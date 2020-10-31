@@ -10,7 +10,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
     public class ListNoteTests : TestBase
     {
         [TestMethod]
-        public void AddListNote()
+        public void PostListNoteShouldBeCreateWitSpecifiedDate()
         {
             // Arange
             DateTime time1 = new DateTime(2019, 01, 01, 10, 01, 01);
@@ -30,7 +30,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             todoList.ModifiedDate.Should().BeNull();
         }
         [TestMethod]
-        public void UpdateTodoList()
+        public void PutListNoteShouldBeUpdateWithSpecifiedDate()
         {
             // Arange
             DateTime time1 = new DateTime(2019, 01, 01, 10, 01, 01);
@@ -52,7 +52,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.ModifiedDate.Should().Be(time2);
         }
         [TestMethod]
-        public void GetTodoList()
+        public void GetListNoteByIdShouldBeReturnListNoteById()
         {
             // Arange
             DateTime time1 = new DateTime(2019, 01, 01, 10, 01, 01);
@@ -70,7 +70,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             todoList.ModifiedDate.Should().BeNull();
         }
         [TestMethod]
-        public void GetTodoLists()
+        public void GetListNotesShouldBeReturnListNotes()
         {
             // Arange
             Data.AddListNote();
@@ -84,7 +84,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             listNotes.Count.Should().Be(3);
         }
         [TestMethod]
-        public void DeleteTodoList()
+        public void DeleteListNoteShouldBeDeleteListNote()
         {
             // Arange
             var listNoteId = Data.AddListNote().Id;
@@ -96,7 +96,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             result.Should().BeTrue();
         }
         [TestMethod]
-        public void DeleteListNoteWithItems()
+        public void DeleteListNoteShouldBeDeleteAllNotes()
         {
             // Arange
             var listNote1 = Data.AddListNote();

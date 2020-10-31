@@ -54,7 +54,6 @@ namespace TodoListStart.Application.Controllers
             return await base.Put(entitySource);
         }
         [HttpGet("getallpublic")]
-        //[EnableQuery]
         public async Task<List<NoteValue>> GetAllPublicNotes()
         {
             var publicNotes = await _repo.GetAllPublicNotes();

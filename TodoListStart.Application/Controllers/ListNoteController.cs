@@ -54,7 +54,6 @@ namespace TodoListStart.Application.Controllers
             return await base.Put(entitySource);
         }
         [HttpGet("{id:int}/notes")]
-        [EnableQuery]
         public async Task<IEnumerable<NoteValue>> GetNotesById(int id)
         {
             var notes = await _repo.GetNotesByListNoteId(id);
