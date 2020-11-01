@@ -9,11 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListStart.IntegrationTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListStart.UnitTests", "TodoListStart.UnitTests\TodoListStart.UnitTests.csproj", "{A42FFB63-DDC2-4271-AF49-4EA81AFA850E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JmeterTestPaln", "JmeterTestPaln", "{04C667F2-C43C-4DAB-933F-56ADA5E3D15B}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\jmeter\apache-jmeter-5.3\Test Plan\TodoListStart Add Note 1.jmx = ..\..\..\jmeter\apache-jmeter-5.3\Test Plan\TodoListStart Add Note 1.jmx
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
