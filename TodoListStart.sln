@@ -14,6 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JmeterTestPlan", "JmeterTestPlan", "{FB8F635A-A4C8-45F6-93C3-9C6D2B2FA13A}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\jmeter\apache-jmeter-5.3\Test Plan\TodoListStart Add Note.jmx = ..\..\..\jmeter\apache-jmeter-5.3\Test Plan\TodoListStart Add Note.jmx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +40,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB8F635A-A4C8-45F6-93C3-9C6D2B2FA13A} = {0DE83352-57CF-4CB4-9EFA-8279257481DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90C28D8E-7AFF-4DF0-90D7-F21AC9E85F23}
