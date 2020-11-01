@@ -28,7 +28,7 @@ namespace TodoListStart.Application
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlite("Data Source=TodoListDb");
+                options.UseSqlite("Data Source=Database");
             });
             services.AddAutoMapper(config => config.AddProfile<ModelProfile>());
             services.AddTransient<IDateTimeService, DateTimeService>();
