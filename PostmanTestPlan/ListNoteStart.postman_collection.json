@@ -1,0 +1,1287 @@
+{
+	"info": {
+		"_postman_id": "e6ffcaec-c42a-40c0-a8e8-66b05e02530d",
+		"name": "ListNoteStart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Notes API",
+			"item": [
+				{
+					"name": "Get List Notes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"listnote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Note By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote/1/notes",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"listnote",
+								"1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Note By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"listnote",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add List Note",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"title 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"listnote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update List Note",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"list 1 updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"listnote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete List Note",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote/3",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"listnote",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b18a325a-1c13-49b3-852b-6e48b65cff62",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "96e8a01f-1a83-42c9-a7d5-86018ec6b5c2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Notes API",
+			"item": [
+				{
+					"name": "Get Notes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Notes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note/getallpublic",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"note",
+								"getallpublic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Note By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"note",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Note",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"note 2\",\r\n    \"listnoteid\": 1,\r\n    \"iscompleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Note",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"text\": \"note 1 updated\",\r\n    \"listnoteid\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Note",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note/2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{api}}",
+								"note",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5fcc9d4b-12b1-46be-9238-b10aae318abc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e064cc2-a0bd-422d-9d74-f007c887ee25",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test Plan",
+			"item": [
+				{
+					"name": "End-To-End Cases 1",
+					"item": [
+						{
+							"name": "Add List Note 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c72f555e-7b00-48a4-b4ac-634e661791c7",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.globals.set(\"ListNote1\", jsonData.id);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3264c98e-9058-416d-8282-32d34e24ea9c",
+										"exec": [
+											"var TitleListNote = \"Title \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"TitleListNote1\", TitleListNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{TitleListNote1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add List Note 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05a9782b-2730-4d97-887c-c20f5e92218e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.globals.set(\"ListNote2\", jsonData.id);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "13098ba1-2636-49c9-8d83-e1f2666520ca",
+										"exec": [
+											"var TitleListNote = \"Title \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"TitleListNote2\", TitleListNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{TitleListNote2}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add List Note 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "859e6fe9-1c7d-4225-baf9-6f1d8a683e5e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.globals.set(\"ListNote3\", jsonData.id);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "c76281c9-7557-4abc-adc7-0fb3afbbd237",
+										"exec": [
+											"var TitleListNote = \"Title \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"TitleListNote3\", TitleListNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{TitleListNote3}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Note 1 (List Note 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "be302292-e5a8-47aa-859f-98054e6f18fa",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var noteJson = pm.response.json();\r",
+											"pm.globals.set(\"Note1ListNote1\", noteJson.id);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5eee35a0-3f90-42a7-9d79-07c3686bf291",
+										"exec": [
+											"var randomNote = \"note \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"RandomNote\", randomNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"{{RandomNote}}\",\r\n    \"listnoteid\": {{ListNote1}},\r\n    \"iscompleted\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Note 2 (List Note 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d8c94d-7d20-49d2-9a9d-9bfa6f5d71b7",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var noteJson = pm.response.json();\r",
+											"pm.globals.set(\"Note2ListNote1\", noteJson.id);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "edb9354b-a356-47d7-b656-447d13847978",
+										"exec": [
+											"var randomNote = \"note \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"RandomNote\", randomNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"{{RandomNote}}\",\r\n    \"listnoteid\": {{ListNote1}},\r\n    \"iscompleted\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Note 3 (List Note 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bc17d64e-0f96-4667-8123-2347790108de",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ece3f3bd-edf5-4543-b6a7-4439563e9f54",
+										"exec": [
+											"var randomNote = \"note \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"RandomNote\", randomNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"{{RandomNote}}\",\r\n    \"listnoteid\": {{ListNote1}},\r\n    \"iscompleted\": true,\r\n    \"ispublic\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Note 1 (List Note 2)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6f9ab9fc-66d3-4177-b2c5-ab083ecea395",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9b2d4afc-205e-4afb-a494-22425d6d145b",
+										"exec": [
+											"var randomNote = \"note \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"RandomNote\", randomNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"{{RandomNote}}\",\r\n    \"listnoteid\": {{ListNote2}},\r\n    \"iscompleted\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Note 2 (List Note 2)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1273d27f-e202-4700-a0e3-4a2f053b68a3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "fdc6652f-279d-40d6-b01b-fa25efabed18",
+										"exec": [
+											"var randomNote = \"note \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"RandomNote\", randomNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"{{RandomNote}}\",\r\n    \"listnoteid\": {{ListNote2}},\r\n    \"iscompleted\": false,\r\n    \"ispublic\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List Notes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4673f721-61c9-49ed-bc68-cf811a9b243c",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Notes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "083edc01-cb5f-4e0c-8e8b-eb6258dde7fa",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Public Notes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8475bf44-a373-45ea-adcc-7595f8a15984",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note/getallpublic",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note",
+										"getallpublic"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Note 1 (List Note 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1409d06e-107b-49f2-9a15-5a5522f4662e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1ed6d0e2-2369-4c71-91b2-404d711ab946",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note/{{Note1ListNote1}}",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note",
+										"{{Note1ListNote1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete List Note 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8e587d53-2c7b-40d9-9845-bdf2d78733da",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote/{{ListNote2}}",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote",
+										"{{ListNote2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List Notes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c03fbd02-38c7-4444-89b2-82af9adf5773",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete List Note 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fe5f72ec-8247-46aa-8959-9850750477ae",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote/{{ListNote3}}",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote",
+										"{{ListNote3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete List Note 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6492139b-8f8d-46eb-a7d9-bca7cb11f9dd",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote/{{ListNote3}}",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote",
+										"{{ListNote3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Note 1 (List Note 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "78082728-fc02-43d0-98fc-262e9bc957c4",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note/{{Note1ListNote1}}",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note",
+										"{{Note1ListNote1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update List Note 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5e6d9e7f-cc5d-4451-bada-3668e0cfcc31",
+										"exec": [
+											"var TitleListNote = \"Title \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"TitleListNote1\", TitleListNote)"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "acb6dbc8-72b4-4762-8b1e-e1325864e127",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": {{ListNote1}},\r\n    \"title\": \"{{TitleListNote1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/listnote",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"listnote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Note 2 (List Note 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "72f8c581-2c9b-43a6-9e24-2a4beecc5812",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4c3fb5cd-1516-4232-a1d6-fb243f8959aa",
+										"exec": [
+											"var randomNote = \"note \" + _.random(1, 99999) + \" \" + _.random(1, 99999) + \" \" + _.random(1, 99999)\r",
+											"pm.globals.set(\"RandomNote\", randomNote)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": {{Note2ListNote1}},\r\n    \"text\": \"{{RandomNote}}\",\r\n    \"listnoteid\": {{ListNote1}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{localhost}}:{{port}}/{{api}}/note",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{localhost}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"{{api}}",
+										"note"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "test case\r\nсоздать список 1 (будет добавлено 3 записи)\r\nсоздать список 2 (будет добавлено 2 записи)\r\nсоздать список 3 (не будет добавлено записей)\r\nдобавить 3 записи к первому списку\r\nдобавить 2 записи ко второму списку\r\nполучить все списки\r\nполучить все записи\r\nполучить публичные записи\r\nудалить запись в первом списке (1 - 1)\r\nудалить второй список\r\nполучить все записи\r\nудалить третий список\r\nудалить третий список (400)\r\nудалить запись в первом списке (1 - 1)\r\nобновить список 1\r\nобновить запись 2 списка 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7f8225ed-8a14-495b-940e-b657321498cf",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5d5b643-34c4-4955-af99-0e66361439f5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5a9d2d3d-27f8-4c96-ab7b-cf997e7d69b8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "405e5d0d-22f9-403e-bcda-a95f830bbfbd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

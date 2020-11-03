@@ -90,6 +90,20 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             result.ModifiedDate.Should().Be(time2);
         }
         [TestMethod]
+        public void PutNoteShouldBeUpdated()
+        {
+            // Arrange
+            var note = Data.AddNote();
+            note.Text = "updated text";
+
+            // Act
+            Facade.PutNote(note);
+
+            // Assert
+            var result = Facade.GetNoteById(note.Id).Value;
+            result.Text.Should().Be("updated text");
+        }
+        [TestMethod]
         public void GetNotesShouldBeReturnNotes()
         {
             // Arange
