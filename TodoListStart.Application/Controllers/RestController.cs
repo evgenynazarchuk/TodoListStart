@@ -12,7 +12,7 @@ using Microsoft.AspNet.OData;
 
 namespace TodoListStart.Application.Controllers
 {
-    public class RestController<TModel, TValue> : ODataController
+    public class RestController<TModel, TValue> : Controller
         where TModel : class, IEntityIdentity, new()
         where TValue : class, IEntityIdentity, new()
     {
