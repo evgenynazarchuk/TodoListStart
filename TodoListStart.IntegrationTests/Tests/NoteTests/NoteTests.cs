@@ -6,7 +6,7 @@ using TodoListStart.IntegrationTests.Support.Builder;
 
 namespace TodoListStart.IntegrationTests.Tests.NoteTests
 {
-    [TestClass]
+    /*[TestClass]
     public class NoteTests : TestBase
     {
         [TestMethod]
@@ -156,5 +156,5 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             // Assert
             result.Count.Should().Be(3);
         }
-    }
+    }*/
 }

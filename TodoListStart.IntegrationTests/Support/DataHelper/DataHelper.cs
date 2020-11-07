@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
-using TodoListStart.Application.ApplicationServices;
 using TodoListStart.Application.Interfaces;
+using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TodoListStart.IntegrationTests.Support.Data
 {
     public partial class DataHelper
     {
-        private readonly IRepository _repo;
+        private IRepository _repo;
         private readonly IMapper _mapper;
-        public DataHelper(IRepository repo, IMapper mapper)
+        private readonly IServiceProvider _services;
+        public DataHelper(IServiceProvider services)
         {
-            _repo = repo;
-            _mapper = mapper;
+            _services = services;
+            //_repo = repo;
+             _mapper = _services.GetRequiredService<IMapper>();
         }
     }
 }

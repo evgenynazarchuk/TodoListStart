@@ -7,18 +7,9 @@ namespace TodoListStart.IntegrationTests.Support.Builder
 {
     public class NoteValueBuilder
     {
-        private readonly NoteValue _noteValue;
-        private NoteValueBuilder()
+        public static NoteValue Build()
         {
-            _noteValue = new Note();
-        }
-        private NoteValueBuilder(NoteValue noteValue)
-        {
-            _noteValue = noteValue;
-        }
-        public static NoteValueBuilder CreateDefaultBuilder()
-        {
-            var todoList = new NoteValue()
+            var note = new NoteValue()
             {
                 Text = DefaultValues.NoteText,
                 ListNoteId = DefaultValues.NoteListNoteId,
@@ -26,16 +17,7 @@ namespace TodoListStart.IntegrationTests.Support.Builder
                 IsPublic = DefaultValues.NoteIsPublic,
                 DueDate = DefaultValues.NoteDueDate
             };
-            return new NoteValueBuilder(todoList);
-        }
-        public NoteValueBuilder Configure(Action<NoteValue> config)
-        {
-            config(_noteValue);
-            return this;
-        }
-        public NoteValue Build()
-        {
-            return _noteValue;
+            return note;
         }
     }
 }

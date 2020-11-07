@@ -8,7 +8,7 @@ using System;
 
 namespace TodoListStart.IntegrationTests.Tests.NoteTests
 {
-    [TestClass]
+    /*[TestClass]
     public class NoteErrorTests : TestBase
     {
         [TestMethod]
@@ -238,5 +238,5 @@ namespace TodoListStart.IntegrationTests.Tests.NoteTests
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
-    }
+    }*/
 }

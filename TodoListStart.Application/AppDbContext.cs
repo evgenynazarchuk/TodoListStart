@@ -2,10 +2,14 @@
 using TodoListStart.Application.Models;
 using TodoListStart.Application.Configuration.Models;
 using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace TodoListStart.Application
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ListNote> ListNotes { get; set; }
         public DbSet<Note> Notes { get; set; }
@@ -18,6 +22,7 @@ namespace TodoListStart.Application
         {
             builder.ApplyConfiguration(new ListNoteModelConfiguration());
             builder.ApplyConfiguration(new NoteModelConfiguration());
+            base.OnModelCreating(builder);
         }
     }
 }

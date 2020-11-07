@@ -6,10 +6,8 @@ using TodoListStart.Application;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
-using TodoListStart.Application.ApplicationServices;
 using TodoListStart.IntegrationTests.Support.Extensions;
 using TodoListStart.Application.Interfaces;
-using AutoMapper;
 
 namespace TodoListStart.IntegrationTests.Support
 {
@@ -18,13 +16,12 @@ namespace TodoListStart.IntegrationTests.Support
         private readonly HttpClient _client;
         private readonly TestServer _server;
         private readonly AppDbContext _db;
-        private readonly IRepository _repo;
-        private readonly IMapper _mapper;
         private readonly IDateTimeService _date;
-        public FacadeHelper Facade { get; set; }
-        public DataHelper Data { get; set; }
-        public DateHelper Date { get; set; }
-        public AuthHelper Auth { get; set; }
+        public readonly FacadeHelper Facade;
+        public readonly DataHelper Data;
+        public readonly DateHelper Date;
+        public readonly AuthHelper Auth;
+        
         public TestBase()
         {
             _server = new TestServer(new WebHostBuilder()
@@ -36,17 +33,17 @@ namespace TodoListStart.IntegrationTests.Support
                 .ConfigureTestServices(services =>
                 {
                     services.SwapDateTimeService();
+                    services.SwapUserService();
                 }));
 
             _client = _server.CreateClient();
             _db = _server.Host.Services.GetRequiredService<AppDbContext>();
-            _repo = _server.Host.Services.GetRequiredService<IRepository>();
             _date = _server.Host.Services.GetRequiredService<IDateTimeService>();
-            _mapper = _server.Host.Services.GetRequiredService<IMapper>();
 
-            Facade = new FacadeHelper(_client);
-            Data = new DataHelper(_repo, _mapper);
+            Facade = new FacadeHelper(_server);
+            Data = new DataHelper(_server.Host.Services);
             Date = new DateHelper(_date);
+            Auth = new AuthHelper(_server.Host.Services);
         }
 
         public void Dispose()

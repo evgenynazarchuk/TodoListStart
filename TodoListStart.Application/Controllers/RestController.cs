@@ -13,8 +13,8 @@ using Microsoft.AspNet.OData;
 namespace TodoListStart.Application.Controllers
 {
     public class RestController<TModel, TValue> : Controller
-        where TModel : class, IEntityIdentity, new()
-        where TValue : class, IEntityIdentity, new()
+        where TModel : class, IEntityIdentity, IAuthAudit, new()
+        where TValue : class, IEntityIdentity, IAuthAudit, new()
     {
         private readonly IMapper _mapper;
         private readonly IRepository _repo;

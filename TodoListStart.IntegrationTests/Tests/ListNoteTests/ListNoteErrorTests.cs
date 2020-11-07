@@ -8,16 +8,14 @@ using System;
 
 namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
 {
-    [TestClass]
+    /*[TestClass]
     public class ListNoteErrorTests : TestBase
     {
         [TestMethod]
         public void PostListNoteShouldBeReturnListNoteEmptyError()
         {
             // Arange
-            var noteList = ListNoteValueBuilder
-                .CreateDefaultBuilder()
-                .Build();
+            var noteList = ListNoteValueBuilder.Build();
             noteList.Title = "";
 
             // Act
@@ -30,9 +28,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
         public void PostListNoteShouldBeReturnListNoteTitleIncorrectLenghtError()
         {
             // Arange
-            var noteList = ListNoteValueBuilder
-                .CreateDefaultBuilder()
-                .Build();
+            var noteList = ListNoteValueBuilder.Build();
             noteList.Title = "01234567890123456789012345678901234567890123456789012345678901234\\" +
                 "5678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
 
@@ -47,9 +43,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
         {
             // Arange
             Data.AddListNote();
-            var noteList = ListNoteValueBuilder
-                .CreateDefaultBuilder()
-                .Build();
+            var noteList = ListNoteValueBuilder.Build();
 
             // Act
             var result = Facade.PostListNote(noteList).Errors;
@@ -106,5 +100,5 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             // Assert
             result.Errors.Should().BeEquivalentTo(new List<string>() { ErrorMessages.NotFound });
         }
-    }
+    }*/
 }

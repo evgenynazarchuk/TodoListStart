@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
 {
-    [TestClass]
+    /*[TestClass]
     public class TodoListControllerTests
     {
         [TestMethod]
@@ -68,5 +68,5 @@ namespace TodoListStart.UnitTests.ControllerTests.TodoListTests
             responseObjs.StatusCode.Should().Be(200);
             todoListValueResponse.Should().Be(toValue);
         }
-    }
+    }*/
 }

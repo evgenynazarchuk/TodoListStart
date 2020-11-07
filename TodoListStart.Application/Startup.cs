@@ -19,6 +19,8 @@ using Microsoft.AspNet.OData.Builder;
 using TodoListStart.Application.Models;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.OData.Edm;
+using Microsoft.AspNetCore.Identity;
+using TodoListStart.Application.Services;
 
 namespace TodoListStart.Application
 {
@@ -26,21 +28,35 @@ namespace TodoListStart.Application
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlite("Data Source=Database");
-            });
+            }, ServiceLifetime.Transient, ServiceLifetime.Transient);
+
             services.AddAutoMapper(config => config.AddProfile<ModelProfile>());
             services.AddTransient<IDateTimeService, DateTimeService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IValidationService, ValidationService>();
-            services.AddControllers();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true; // default
+                options.Password.RequiredLength = 4; // min
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<AppDbContext>();
+            services.AddMvcCore();
+            
             //services.AddMvc(opt => opt.EnableEndpointRouting = false);
-            services.AddOData();
-            services.AddSwaggerGen(c =>
+            //services.AddOData();
+            /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoStart API", Version = "v1" });
-            });
+            });*/
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -49,11 +65,11 @@ namespace TodoListStart.Application
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
+            /*app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoStart API");
-            });
+            });*/
 
             app.UseRouting();
 
@@ -63,6 +79,9 @@ namespace TodoListStart.Application
                 routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
                 routeBuilder.MapODataServiceRoute("ODataRoute", "odata", GetEdmModel());
             });*/
+
+            app.UseAuthentication();
+            //app.UseMvc();
 
             app.UseEndpoints(endpoints =>
             {

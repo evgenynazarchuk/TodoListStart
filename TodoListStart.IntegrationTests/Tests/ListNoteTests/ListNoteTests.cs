@@ -6,7 +6,7 @@ using TodoListStart.IntegrationTests.Support.Builder;
 
 namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
 {
-    [TestClass]
+    /*[TestClass]
     public class ListNoteTests : TestBase
     {
         [TestMethod]
@@ -114,5 +114,5 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             var items = Facade.GetNotes().Value;
             items.Count.Should().Be(3);
         }
-    }
+    }*/
 }

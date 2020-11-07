@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TodoListStart.Application.ValueObjects
 {
-    public class NoteValue : IEntityIdentity, IDateTimeAudit
+    public class NoteValue : IEntityIdentity, IDateTimeAudit, IAuthAudit
     {
         public int Id { get; set; }
         public string Text { get; set; }
@@ -16,5 +16,7 @@ namespace TodoListStart.Application.ValueObjects
         public bool IsPublic { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }
