@@ -11,17 +11,18 @@ namespace TodoListStart.Application.Services.Repository
     public partial class Repository : IRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly IDateTimeService _datetimeService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IDateTimeService _datetimeService;
         private readonly IUserService _userService;
-        public Repository(AppDbContext dbContext, 
-            IDateTimeService datetimeServce,
+        public Repository(
+            AppDbContext dbContext,
             UserManager<ApplicationUser> userManager,
+            IDateTimeService datetimeServce,
             IUserService userService)
         {
             _dbContext = dbContext;
-            _datetimeService = datetimeServce;
             _userManager = userManager;
+            _datetimeService = datetimeServce;
             _userService = userService;
         }
         public virtual IQueryable<TModel> Read<TModel>()

@@ -11,7 +11,7 @@ namespace TodoListStart.Application.Services
     {
         public UserService(IHttpContextAccessor http)
         {
-            Email = http.HttpContext.User.Identity.Name;
+            Email = http?.HttpContext?.User?.Identity?.Name ?? "system";
         }
         public string Email { get; set; }
     }

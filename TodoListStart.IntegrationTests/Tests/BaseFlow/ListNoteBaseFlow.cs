@@ -9,7 +9,7 @@ using TodoListStart.IntegrationTests.Support.Constants;
 namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
 {
     [TestClass]
-    public class ListNotesWithAuth : TestBase
+    public class ListNoteBaseFlow : TestBase
     {
         [TestMethod]
         public void AddListNoteWithAuth()
