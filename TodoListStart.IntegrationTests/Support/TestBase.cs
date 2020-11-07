@@ -16,7 +16,6 @@ namespace TodoListStart.IntegrationTests.Support
         private readonly HttpClient _client;
         private readonly TestServer _server;
         private readonly AppDbContext _db;
-        private readonly IDateTimeService _date;
         public readonly FacadeHelper Facade;
         public readonly DataHelper Data;
         public readonly DateHelper Date;
@@ -38,14 +37,13 @@ namespace TodoListStart.IntegrationTests.Support
 
             _client = _server.CreateClient();
             _db = _server.Host.Services.GetRequiredService<AppDbContext>();
-            _date = _server.Host.Services.GetRequiredService<IDateTimeService>();
+            var dateService = _server.Host.Services.GetRequiredService<IDateTimeService>();
 
             Facade = new FacadeHelper(_server);
             Data = new DataHelper(_server.Host.Services);
-            Date = new DateHelper(_date);
+            Date = new DateHelper(dateService);
             Auth = new AuthHelper(_server.Host.Services);
         }
-
         public void Dispose()
         {
             _db.Database.EnsureDeleted();

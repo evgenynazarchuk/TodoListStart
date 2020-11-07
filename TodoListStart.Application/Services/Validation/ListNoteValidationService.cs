@@ -19,17 +19,17 @@ namespace TodoListStart.Application.Services.Validation
 
             if (IsNullOrEmptyOrWhiteSpace(listNoteValue.Title))
             {
-                errorMessages.Add(ErrorMessages.ListNoteEmpty);
+                errorMessages.Add(ErrorMessages.ListNoteIsEmpty);
             }
 
             if (listNoteValue.Title.Length > 144)
             {
-                errorMessages.Add(ErrorMessages.ListNoteTitleIncorrectLenght);
+                errorMessages.Add(ErrorMessages.ListNoteTitleIsIncorrectLenght);
             }
 
             if (await _repo.IsExistListNoteTitle(listNoteValue))
             {
-                errorMessages.Add(ErrorMessages.ListNoteTitleNotUnique);
+                errorMessages.Add(ErrorMessages.ListNoteTitleIsNotUnique);
             }
 
             return errorMessages;

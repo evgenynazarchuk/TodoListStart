@@ -15,9 +15,8 @@ namespace TodoListStart.IntegrationTests.Support
         public AuthHelper(IServiceProvider services)
         {
             _services = services;
-
         }
-        public IdentityResult Registration(RegistrationUser userInfo) 
+        public IdentityResult Registration(RegistrationUser userInfo)
         {
             var userManager = _services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = new ApplicationUser { Email = userInfo.Email, UserName = userInfo.Email };

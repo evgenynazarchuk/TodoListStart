@@ -11,17 +11,14 @@ namespace TodoListStart.Application.Services.Repository
     public partial class Repository : IRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IDateTimeService _datetimeService;
         private readonly IUserService _userService;
         public Repository(
             AppDbContext dbContext,
-            UserManager<ApplicationUser> userManager,
             IDateTimeService datetimeServce,
             IUserService userService)
         {
             _dbContext = dbContext;
-            _userManager = userManager;
             _datetimeService = datetimeServce;
             _userService = userService;
         }
@@ -38,6 +35,12 @@ namespace TodoListStart.Application.Services.Repository
         {
             var entity = await Read<TModel>().SingleOrDefaultAsync(x => x.Id == id && x.CreatedBy == _userService.Email);
             return entity;
+        }
+        public virtual async Task<bool> IsExist<TModel>(int id)
+            where TModel : class, IEntityIdentity, IAuthAudit, new()
+        {
+            var result = await Read<TModel>().AnyAsync(x => x.Id == id && x.CreatedBy == _userService.Email);
+            return result;
         }
         public virtual async Task<TModel> Add<TModel>(TModel entity)
             where TModel : class, IEntityIdentity, IAuthAudit, new()
@@ -66,7 +69,6 @@ namespace TodoListStart.Application.Services.Repository
             where TModel : class, IEntityIdentity, IAuthAudit, new()
         {
             var entityModel = await Find<TModel>(entity.Id);
-            if (entityModel.CreatedBy != _userService.Email) return;
 
             if (entity is IDateTimeAudit)
             {   
@@ -92,12 +94,6 @@ namespace TodoListStart.Application.Services.Repository
                 _dbContext.Set<TModel>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
             }
-        }
-        public virtual async Task<bool> IsExist<TModel>(int id)
-            where TModel : class, IEntityIdentity, IAuthAudit, new()
-        {
-            var result = await Read<TModel>().AnyAsync(x => x.Id == id && x.CreatedBy == _userService.Email);
-            return result;
         }
     }
 }

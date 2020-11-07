@@ -4,6 +4,7 @@ using TodoListStart.Application.ValueObjects;
 using TodoListStart.Application.Models;
 using TodoListStart.Application.Constants;
 using System;
+using System.Linq;
 
 namespace TodoListStart.Application.Services.Validation
 {
@@ -21,27 +22,27 @@ namespace TodoListStart.Application.Services.Validation
 
             if (IsNullOrEmptyOrWhiteSpace(noteValue.Text))
             {
-                errorMessages.Add(ErrorMessages.NoteEmpty);
+                errorMessages.Add(ErrorMessages.NoteIsEmpty);
             }
 
             if (noteValue.Text.Length > 144)
             {
-                errorMessages.Add(ErrorMessages.NoteTextIncorrectLenght);
+                errorMessages.Add(ErrorMessages.NoteTextIsIncorrectLenght);
             }
 
             if (noteValue.DueDate != null && noteValue.DueDate < DateTime.Today)
             {
-                errorMessages.Add(ErrorMessages.NoteDueDateLessCurrentDate);
+                errorMessages.Add(ErrorMessages.NoteDueDateIsLessCurrentDate);
             }
 
             if (!await _repo.IsExist<ListNote>(noteValue.ListNoteId))
             {
-                errorMessages.Add(ErrorMessages.ListNoteNotExist);
+                errorMessages.Add(ErrorMessages.ListNoteIsNotExist);
             }
 
             if (await _repo.IsExistNoteTextInListNote(noteValue))
             {
-                errorMessages.Add(ErrorMessages.NoteNotUnique);
+                errorMessages.Add(ErrorMessages.NoteIsNotUnique);
             }
 
             return errorMessages;
