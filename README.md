@@ -11,7 +11,7 @@
 # TodoListStart.IntegrationTests 
 # Концепция интеграционных автотестов
 Класс TestBase запускает приложение TodoListStart.IntegrationTests  
-В классе реализованы сущности Facade, Data, Date, Auth
+В классе реализованы сущности Facade, Data, Date, Auth  
 Facade создаёт http запросы к приложению  
 Data создаёт данные и зависимые сущности  
 Date устанавливает текущие время для приложения  
