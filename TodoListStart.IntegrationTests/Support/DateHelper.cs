@@ -15,7 +15,7 @@ namespace TodoListStart.IntegrationTests.Support
         {
             (_dateTimeService as DateTimeServiceMock).SetCurrentDateTime(year, month, day, hour, minute, second);
         }
-        public void SetCurrentDateTime(DateTime dateTime)
+        public void SetDateTime(DateTime dateTime)
         {
             (_dateTimeService as DateTimeServiceMock).SetCurrentDateTime(dateTime);
         }

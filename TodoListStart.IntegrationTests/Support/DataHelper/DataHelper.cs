@@ -13,8 +13,7 @@ namespace TodoListStart.IntegrationTests.Support.Data
         public DataHelper(IServiceProvider services)
         {
             _services = services;
-            //_repo = repo;
-             _mapper = _services.GetRequiredService<IMapper>();
+            _mapper = _services.GetRequiredService<IMapper>();
         }
     }
 }

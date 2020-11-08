@@ -16,14 +16,14 @@ namespace TodoListStart.IntegrationTests.Support
         {
             _services = services;
         }
-        public IdentityResult Registration(RegistrationUser userInfo)
+        public IdentityResult AddUser(RegistrationUser userInfo)
         {
             var userManager = _services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = new ApplicationUser { Email = userInfo.Email, UserName = userInfo.Email };
             var result = userManager.CreateAsync(user, userInfo.Password).GetAwaiter().GetResult();
             return result;
         }
-        public void SetUser(string email)
+        public void SignIn(string email)
         {
             _userService = _services.GetRequiredService<IUserService>();
             (_userService as UserServiceMock).SetUser(email);

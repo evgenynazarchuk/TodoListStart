@@ -16,7 +16,7 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
         {
             // Arange
             var time = new DateTime(2020, 1, 15);
-            this.Date.SetCurrentDateTime(time);
+            this.Date.SetDateTime(time);
             var listNote = ListNoteValueBuilder.Build();
             var newUser = RegistrationUserBuilder.Build();
 
@@ -42,9 +42,9 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             var listNote = ListNoteValueBuilder.Build();
             var note = NoteValueBuilder.Build();
             var signin = new UserSignIn { Email = "default@default.com", Password = "password" };
-            this.Date.SetCurrentDateTime(time);
-            Auth.Registration(newUser);
-            Auth.SetUser(signin.Email);
+            this.Date.SetDateTime(time);
+            Auth.AddUser(newUser);
+            Auth.SignIn(signin.Email);
             var listNoteId = Data.AddListNote(listNote).Id;
             note.ListNoteId = listNoteId;
 
@@ -63,8 +63,8 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             var user2 = RegistrationUserBuilder.Build();
             user1.Email = "default1@default.com";
             user2.Email = "default2@default.com";
-            Auth.Registration(user1);
-            Auth.Registration(user2);
+            Auth.AddUser(user1);
+            Auth.AddUser(user2);
 
             var listNote1 = ListNoteValueBuilder.Build();
             var listNote2 = ListNoteValueBuilder.Build();
@@ -74,14 +74,14 @@ namespace TodoListStart.IntegrationTests.Tests.ListNoteTests
             var note4 = NoteValueBuilder.Build();
             var note5 = NoteValueBuilder.Build();
 
-            Auth.SetUser(user1.Email);
+            Auth.SignIn(user1.Email);
             var listNoteId1 = Data.AddListNote(listNote1).Id;
             note1.ListNoteId = note2.ListNoteId = note3.ListNoteId = listNoteId1;
             Data.AddNote(note1);
             Data.AddNote(note2);
             Data.AddNote(note3);
 
-            Auth.SetUser(user2.Email);
+            Auth.SignIn(user2.Email);
             var listNoteId2 = Data.AddListNote(listNote2).Id;
             note4.ListNoteId = note5.ListNoteId = listNoteId2;
             Data.AddNote(note4);
