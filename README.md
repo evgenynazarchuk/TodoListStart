@@ -1,4 +1,4 @@
-# TodoListStart
+# TodoListStart [Deprecated]
 Концепция интеграционных автотестов для dotnet core  
 Стильно, модно, молодёжно =)  
 
